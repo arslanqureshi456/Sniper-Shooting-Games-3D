@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - NoHitMark
+  - Usable
+  - NPC
+  - gun
+  - PhysicsObject
+  - Climbable
+  - Water
+  - Dirt
+  - Metal
+  - Wood
+  - Glass
+  - Flesh
+  - Stone
+  - metal
+  - Level Parts
+  - TutorialPickup
+  - Pickups
+  - dirt
+  - Flesh/BadNPC
+  - HitBox
+  - AI Controller
+  - concrete
+  - Concrete
+  - Cover
+  - Effects
+  - PlayerSpawnPoint
+  - EnemySpawnPoint
+  - Sniper1Scope
+  - Sniper2UScope
+  - Sniper2Scope
+  - Sniper1UScope
+  - Enemy
+  - BulletSpawnPoint
+  - MuzzleEnd
+  - HitBoxBoss
+  - SwitchCam
+  - Swing
+  - Grass
+  - Environment
+  - Wave
+  - EnemyEscapePoint
+  - AutoAssist
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Gun
+  - ParticleEffect
+  - 
+  - Player
+  - Bullet Shells
+  - NPCs
+  - GUICamera
+  - Boss
+  - 
+  - 
+  - Liquid Collision
+  - 
+  - LeanCollider
+  - Player Clip
+  - Reward
+  - Near
+  - Far
+  - Ground
+  - SkyDome
+  - SkinNear
+  - SkinFar
+  - Rewarded3DGun
+  - AimAssist
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Debris
+    uniqueID: 1561855295
+    locked: 0
+  - name: HitSpark
+    uniqueID: 1452714893
+    locked: 0

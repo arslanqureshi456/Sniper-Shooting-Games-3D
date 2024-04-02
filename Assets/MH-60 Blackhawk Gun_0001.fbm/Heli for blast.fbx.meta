@@ -1,0 +1,333 @@
+fileFormatVersion: 2
+guid: 000e9df4a36bbdf4e9a305f784393ba4
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: main__rotor_Part_1
+    100004: main__rotor_Part_10
+    100006: main__rotor_Part_2
+    100008: main__rotor_Part_5
+    100010: main__rotor_Part_6
+    100012: main__rotor_Part_7
+    100014: main__rotor_Part_8
+    100016: Null_2_Part_1
+    100018: Null_2_Part_10
+    100020: Null_2_Part_11
+    100022: Null_2_Part_12
+    100024: Null_2_Part_13
+    100026: Null_2_Part_14
+    100028: Null_2_Part_16
+    100030: Null_2_Part_17
+    100032: Null_2_Part_18
+    100034: Null_2_Part_19
+    100036: Null_2_Part_2
+    100038: Null_2_Part_20
+    100040: Null_2_Part_21
+    100042: Null_2_Part_22
+    100044: Null_2_Part_23
+    100046: Null_2_Part_24
+    100048: Null_2_Part_25
+    100050: Null_2_Part_3
+    100052: Null_2_Part_4
+    100054: Null_2_Part_5
+    100056: Null_2_Part_6
+    100058: Null_2_Part_7
+    100060: Null_2_Part_8
+    100062: Null_2_Part_9
+    100064: rear_rotor_Part_1
+    100066: rear_rotor_Part_2
+    100068: rear_rotor_Part_3
+    100070: rear_rotor_Part_4
+    100072: rear_rotor_Part_5
+    100074: rear_rotor_Part_6
+    100076: rear_rotor_Part_7
+    100078: rear_rotor_Part_8
+    400000: //RootNode
+    400002: main__rotor_Part_1
+    400004: main__rotor_Part_10
+    400006: main__rotor_Part_2
+    400008: main__rotor_Part_5
+    400010: main__rotor_Part_6
+    400012: main__rotor_Part_7
+    400014: main__rotor_Part_8
+    400016: Null_2_Part_1
+    400018: Null_2_Part_10
+    400020: Null_2_Part_11
+    400022: Null_2_Part_12
+    400024: Null_2_Part_13
+    400026: Null_2_Part_14
+    400028: Null_2_Part_16
+    400030: Null_2_Part_17
+    400032: Null_2_Part_18
+    400034: Null_2_Part_19
+    400036: Null_2_Part_2
+    400038: Null_2_Part_20
+    400040: Null_2_Part_21
+    400042: Null_2_Part_22
+    400044: Null_2_Part_23
+    400046: Null_2_Part_24
+    400048: Null_2_Part_25
+    400050: Null_2_Part_3
+    400052: Null_2_Part_4
+    400054: Null_2_Part_5
+    400056: Null_2_Part_6
+    400058: Null_2_Part_7
+    400060: Null_2_Part_8
+    400062: Null_2_Part_9
+    400064: rear_rotor_Part_1
+    400066: rear_rotor_Part_2
+    400068: rear_rotor_Part_3
+    400070: rear_rotor_Part_4
+    400072: rear_rotor_Part_5
+    400074: rear_rotor_Part_6
+    400076: rear_rotor_Part_7
+    400078: rear_rotor_Part_8
+    2100000: gunshipint
+    2100002: 'Material #17'
+    2100004: gunshipglass
+    2100006: gunshipint.2
+    2100008: 'Material #17.2'
+    2100010: 'Material #17.3'
+    2100012: gunshipint.3
+    2100014: gunshipglass.2
+    2100016: 'Material #17.5'
+    2100018: gunshipint.5
+    2100020: gunshipglass.4
+    2100022: 'Material #17.7'
+    2100024: 'Material #17.8'
+    2100026: 'Material #17.9'
+    2100028: gunshipint.7
+    2100030: 'Material #17.11'
+    2100032: gunshipint.9
+    2100034: 'Material #17.12'
+    2100036: gunshipint.10
+    2100038: gunshipglass.5
+    2100040: 'Material #17.14'
+    2100042: gunshipint.12
+    2100044: 'Material #17.15'
+    2100046: gunshipglass.7
+    2100048: 'Material #17.19'
+    2100050: gunshipint.14
+    2100052: 'Material #17.21'
+    2100054: gunshipint.16
+    2100056: gunshipint.17
+    2100058: 'Material #17.22'
+    2100060: gunshipglass.10
+    2100062: 'Material #17.23'
+    2100064: gunshipglass.11
+    2100066: gunshipint.18
+    2100068: 'Material #17.25'
+    2100070: 'Material #17.26'
+    2100072: 'Material #17.27'
+    2100074: 'Material #17.29'
+    2100076: 'Material #17.30'
+    2100078: 'Material #17.33'
+    2100080: 'Material #17.34'
+    2100082: 'Material #17.35'
+    2100084: 'Material #17.36'
+    2100086: 'Material #17.38'
+    2300000: main__rotor_Part_1
+    2300002: main__rotor_Part_10
+    2300004: main__rotor_Part_2
+    2300006: main__rotor_Part_5
+    2300008: main__rotor_Part_6
+    2300010: main__rotor_Part_7
+    2300012: main__rotor_Part_8
+    2300014: Null_2_Part_1
+    2300016: Null_2_Part_10
+    2300018: Null_2_Part_11
+    2300020: Null_2_Part_12
+    2300022: Null_2_Part_13
+    2300024: Null_2_Part_14
+    2300026: Null_2_Part_16
+    2300028: Null_2_Part_17
+    2300030: Null_2_Part_18
+    2300032: Null_2_Part_19
+    2300034: Null_2_Part_2
+    2300036: Null_2_Part_20
+    2300038: Null_2_Part_21
+    2300040: Null_2_Part_22
+    2300042: Null_2_Part_23
+    2300044: Null_2_Part_24
+    2300046: Null_2_Part_25
+    2300048: Null_2_Part_3
+    2300050: Null_2_Part_4
+    2300052: Null_2_Part_5
+    2300054: Null_2_Part_6
+    2300056: Null_2_Part_7
+    2300058: Null_2_Part_8
+    2300060: Null_2_Part_9
+    2300062: rear_rotor_Part_1
+    2300064: rear_rotor_Part_2
+    2300066: rear_rotor_Part_3
+    2300068: rear_rotor_Part_4
+    2300070: rear_rotor_Part_5
+    2300072: rear_rotor_Part_6
+    2300074: rear_rotor_Part_7
+    2300076: rear_rotor_Part_8
+    3300000: main__rotor_Part_1
+    3300002: main__rotor_Part_10
+    3300004: main__rotor_Part_2
+    3300006: main__rotor_Part_5
+    3300008: main__rotor_Part_6
+    3300010: main__rotor_Part_7
+    3300012: main__rotor_Part_8
+    3300014: Null_2_Part_1
+    3300016: Null_2_Part_10
+    3300018: Null_2_Part_11
+    3300020: Null_2_Part_12
+    3300022: Null_2_Part_13
+    3300024: Null_2_Part_14
+    3300026: Null_2_Part_16
+    3300028: Null_2_Part_17
+    3300030: Null_2_Part_18
+    3300032: Null_2_Part_19
+    3300034: Null_2_Part_2
+    3300036: Null_2_Part_20
+    3300038: Null_2_Part_21
+    3300040: Null_2_Part_22
+    3300042: Null_2_Part_23
+    3300044: Null_2_Part_24
+    3300046: Null_2_Part_25
+    3300048: Null_2_Part_3
+    3300050: Null_2_Part_4
+    3300052: Null_2_Part_5
+    3300054: Null_2_Part_6
+    3300056: Null_2_Part_7
+    3300058: Null_2_Part_8
+    3300060: Null_2_Part_9
+    3300062: rear_rotor_Part_1
+    3300064: rear_rotor_Part_2
+    3300066: rear_rotor_Part_3
+    3300068: rear_rotor_Part_4
+    3300070: rear_rotor_Part_5
+    3300072: rear_rotor_Part_6
+    3300074: rear_rotor_Part_7
+    3300076: rear_rotor_Part_8
+    4300000: Null_2_Part_1
+    4300002: Null_2_Part_2
+    4300004: Null_2_Part_3
+    4300006: Null_2_Part_4
+    4300008: Null_2_Part_5
+    4300010: Null_2_Part_6
+    4300012: Null_2_Part_7
+    4300014: Null_2_Part_8
+    4300016: Null_2_Part_9
+    4300018: Null_2_Part_10
+    4300020: Null_2_Part_11
+    4300022: Null_2_Part_12
+    4300024: Null_2_Part_13
+    4300026: Null_2_Part_14
+    4300028: Null_2_Part_16
+    4300030: Null_2_Part_17
+    4300032: Null_2_Part_18
+    4300034: Null_2_Part_19
+    4300036: Null_2_Part_20
+    4300038: Null_2_Part_21
+    4300040: Null_2_Part_22
+    4300042: Null_2_Part_23
+    4300044: Null_2_Part_24
+    4300046: Null_2_Part_25
+    4300048: main__rotor_Part_10
+    4300050: main__rotor_Part_8
+    4300052: main__rotor_Part_1
+    4300054: main__rotor_Part_5
+    4300056: main__rotor_Part_7
+    4300058: main__rotor_Part_6
+    4300060: main__rotor_Part_2
+    4300062: rear_rotor_Part_1
+    4300064: rear_rotor_Part_2
+    4300066: rear_rotor_Part_3
+    4300068: rear_rotor_Part_4
+    4300070: rear_rotor_Part_5
+    4300072: rear_rotor_Part_6
+    4300074: rear_rotor_Part_7
+    4300076: rear_rotor_Part_8
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 3
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

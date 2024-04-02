@@ -1,0 +1,19 @@
+{
+    "name": "Hierarchy-Pro-Source",
+    "references": [],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "Hierarchy (MAYA outliner) Handler.dll",
+        "Project Handler.dll",
+        "Hierarchy (MAYA outliner) Plugin.dll",
+        "Project Plugin.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RateUsPanel
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 65
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 57a85ce13b2081a408f84a364b389bb5, type: 3}
+    - {fileID: 2800000, guid: 32c74f21bdc59dc4d92d4a83b5e4a569, type: 3}
+    - {fileID: 2800000, guid: 0796655c626aa794eae9fbe82d932211, type: 3}
+    - {fileID: 2800000, guid: 0e4353123bc5cf144a6cceaeb254e042, type: 3}
+    - {fileID: 2800000, guid: 9c9c2568d337cd9459c6f38f95297ded, type: 3}
+    - {fileID: 2800000, guid: 76db00ed09c8e60418de83458b489382, type: 3}
+    - {fileID: 2800000, guid: 03aefafec28446f45bcaea069a176c81, type: 3}
+    - {fileID: 2800000, guid: a869bfee6907ff44f9a3d2185489af6e, type: 3}
+    - {fileID: 2800000, guid: 04820c79acb9a4043b13a45e1edc6dd1, type: 3}
+    - {fileID: 2800000, guid: a0540082f0c0ada43b1a1cc3b2637730, type: 3}
+    - {fileID: 2800000, guid: a785f969476433d47b88476948925890, type: 3}
+    - {fileID: 2800000, guid: 069d04af834ef034ea72e72ff4fd94c0, type: 3}
+    - {fileID: 2800000, guid: d538b15b03aa9324eaf902d3d6c7941c, type: 3}
+    - {fileID: 2800000, guid: 4cb2d0603485f2245afb474b37f5ce23, type: 3}
+    - {fileID: 2800000, guid: 21f9921969376fe42a25fa0d10f39617, type: 3}
+    - {fileID: 2800000, guid: 9dae49d0d967c7c4aa59a553fd260c5a, type: 3}
+    - {fileID: 2800000, guid: 663a028d099dc91499e8cb755f9e163a, type: 3}
+    - {fileID: 2800000, guid: 1c2f527c0d18b5f4186cb459cbfc7995, type: 3}
+    - {fileID: 2800000, guid: b344468ce36be544090eb5e0115543d9, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 4cb2d0603485f2245afb474b37f5ce23, type: 3}
+  - {fileID: 21300000, guid: 9dae49d0d967c7c4aa59a553fd260c5a, type: 3}
+  - {fileID: 21300000, guid: 32c74f21bdc59dc4d92d4a83b5e4a569, type: 3}
+  - {fileID: 21300000, guid: 57a85ce13b2081a408f84a364b389bb5, type: 3}
+  - {fileID: 21300000, guid: 0e4353123bc5cf144a6cceaeb254e042, type: 3}
+  - {fileID: 21300000, guid: a0540082f0c0ada43b1a1cc3b2637730, type: 3}
+  - {fileID: 21300000, guid: 9c9c2568d337cd9459c6f38f95297ded, type: 3}
+  - {fileID: 21300000, guid: 21f9921969376fe42a25fa0d10f39617, type: 3}
+  - {fileID: 21300000, guid: a785f969476433d47b88476948925890, type: 3}
+  - {fileID: 21300000, guid: 04820c79acb9a4043b13a45e1edc6dd1, type: 3}
+  - {fileID: 21300000, guid: d538b15b03aa9324eaf902d3d6c7941c, type: 3}
+  - {fileID: 21300000, guid: 0796655c626aa794eae9fbe82d932211, type: 3}
+  - {fileID: 21300000, guid: b344468ce36be544090eb5e0115543d9, type: 3}
+  - {fileID: 21300000, guid: 663a028d099dc91499e8cb755f9e163a, type: 3}
+  - {fileID: 21300000, guid: 76db00ed09c8e60418de83458b489382, type: 3}
+  - {fileID: 21300000, guid: a869bfee6907ff44f9a3d2185489af6e, type: 3}
+  - {fileID: 21300000, guid: 03aefafec28446f45bcaea069a176c81, type: 3}
+  - {fileID: 21300000, guid: 069d04af834ef034ea72e72ff4fd94c0, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Bullet_4
+  - Hand_click_1
+  - Bullet_2
+  - Bullet_1
+  - Bullet_4
+  - 5_Star
+  - Bullet_5
+  - Bullet_5
+  - Bullet_1
+  - 4_Star
+  - Bullet_3
+  - Bullet_3
+  - Star_Bar_1
+  - Hand_click_2
+  - 1_Star
+  - 3_Star
+  - 2_Star
+  - Bullet_2
+  m_RenderDataMap: {}
+  m_Tag: RateUsPanel
+  m_IsVariant: 0

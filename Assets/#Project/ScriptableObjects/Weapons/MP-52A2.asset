@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e3512b2f779b4499694ed01dae456c, type: 3}
+  m_Name: MP-52A2
+  m_EditorClassIdentifier: 
+  _name: MP-52A2
+  _goldPrice: 2700
+  _spPrice: 0
+  _baseDamage: 80
+  _maxDamage: 80
+  _baseReloadTime: 1
+  _maxReloadTime: 1
+  _baseZoom: 45
+  _maxZoom: 45
+  _baseMagzineSize: 8
+  _maxMagzineSize: 8
+  _baseNumberOfMagzine: 5
+  _maxNumberOfMagzine: 5
+  _baseFireRate: 1
+  _maxFireRate: 1
+  _baseRange: 100
+  _maxRange: 100
+  _baseAccuracy: 1
+  _maxAccuracy: 1
+  _baseSpread: 0.075
+  _MaxSpread: 0.075
+  _baseKickUp: 0
+  _baseKickSide: 10
+  _baseClimbSide: 0
+  _baseViewClimbOff: 1
+  _purchased: 0
+  _equipped: 0
+  isComingSoon: 0
+  PrefsIndex: 5
+  DiscountPriceID: dis_mp_52a2
+  RealPriceID: dis_mp_52a2
+  Category: Assault
+  OfferIndex: -1
+  Desc: Rainbow Bird
+  Code: SU-R
+  ClassColor: {r: 0.35686275, g: 0.60784316, b: 0.8352941, a: 1}
+  Class: Rare
+  perkPoints: 135
+  adCount: 1

@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ca84e725c7c764aa5ed097918d14b7, type: 3}
+  m_Name: ftLocalStorage
+  m_EditorClassIdentifier: 
+  modifiedAssetPathList:
+  - Assets/Bakery/examples/content/sponza/sponza.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Boxes/Wooden_box_v2/Source/Wooden_box_v2.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Roads/Floor_elevation_sets/UNIFloor_elevation_set_v2/Source/UNIFloor_elevation_set_v2.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Roads/Road_sets/Road_set_v1/Source/Road_set_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Fences/Metal_fences/Metal_fence_v1/Source/Metal_fence_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Elements/Set_4/Source/1F_Buiding_v1_set_2.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Other_props/Palets/Bags_on_pallet_v1/Source/Bags_on_pallet_v1_2.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Barrels/Barrel_v2/Source/Barrel_v2.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Office_props/Office_props_set1/Source/Office_props_set1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Fences/Road_blocks/Road_block_v1/Source/Road_block_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Boxes/Wooden_box_v1/Source/Wooden_box_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Oil_tanks/Oil_tank_v3/Source/Oil_tank_v3.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Storage_tanks/Storage_tank_v2/Source/Storage_tank_v2.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Storage_tanks/Storage_tank_v1/Source/Storage_tank_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Containers/Cargo_container_v1/Source/Cargo_container_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Hangars/Hangar_v7/Source/Hangar_v7_2.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Elements/Modular_corridor_v1/Source/Modular_corridor_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Roads/Floor_elevation_sets/UNIFloor_elevation_set_v1/Source/UNIFloor_elevation_set_v1.fbx
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Hangars/Hangar_v6/Source/Hangar_v6_3.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Fences/Concrete_fences/Concrete_fence_v1/Source/Concrete_fence_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Elements/Windows/Source/1F_Buiding_v1_windows_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/1F_Buiding_v1/Source/1F_Buiding_v1_3.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Office/Office_v1/Source/Office_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/1F_Buiding_v1/Source/1F_Buiding_v1_6.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/1F_Buiding_v1/Source/1F_Buiding_v1_5.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/1F_Buiding_v1/Source/1F_Buiding_v1_4.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Outbuildings/Outbuildings_v1/Source/Outbuildings_v1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Elements/Set_3/Source/1F_Buiding_v1_set_1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Other_props/Support_set/Support_set_v1/Source/Support_set_v1_railing1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/1F_Buiding_v1/Source/1F_Buiding_v1_1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Hangars/Hangar_v2/Source/Hangar_v2_6.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Hangars/Hangar_v2/Source/Hangar_v2_4.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Hangars/Hangar_v2/Source/Hangar_v2.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Hangars/Hangar_v5/Source/Hangar_v5_7.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Hangars/Hangar_v5/Source/Hangar_v5_1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Hangars/Hangar_v5/Source/Hangar_v5_9.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Hangars/Hangar_v5/Source/Hangar_v5_6.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Buildings/Industrial/Outbuildings/Outbuildings_v2/Source/Outbuildings_v2.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Other_props/Palets/Bags_on_pallet_v1/Source/Bags_on_pallet_v1_1.FBX
+  - Assets/RPG_FPS_game_assets_industrial/Models/Other_props/Food/Food_boxes_v1/Source/Food_boxes_v1.FBX
+  modifiedAssetPaddingHash: aaf8cc2e606e9373e0d47a15e2335d43e04527156c49a115ecc12491fe4945be701005cdecc12491294d4f9095c2a693c668e2a8dd5131ee79edd011567e9363885031ee1df102ef5dc5d8901b3994926cafb4552fba6d4127e2b832ad2815b74ef3e205b5a059057d662f44ecc12491fe4945be5381f773ddfff4e2377e93632b005b36cc515d4479dab9b3a44671d9a861515d673eccbcecc124912d885118

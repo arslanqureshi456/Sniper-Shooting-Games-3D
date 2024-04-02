@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MissionCompleteAndFailed
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 65
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 59c624422b8478d42839e7368ed32f92, type: 3}
+    - {fileID: 2800000, guid: 00d6d3e12366d4248ba5a41290ecac4c, type: 3}
+    - {fileID: 2800000, guid: 3222d44938a075f4fb4346ea37068448, type: 3}
+    - {fileID: 2800000, guid: dba43b405f93e0146a9647cd12df9822, type: 3}
+    - {fileID: 2800000, guid: 4f25e23a057f2834f95497be9c480685, type: 3}
+    - {fileID: 2800000, guid: 1150b76a378e6e14e920f678a46b4e5f, type: 3}
+    - {fileID: 2800000, guid: 0e6188c9764da184bbab5ea2ca52d30b, type: 3}
+    - {fileID: 2800000, guid: 0458a7024240e7241884b8fe021b7f70, type: 3}
+    - {fileID: 2800000, guid: 51fd7b3326f6859468eb8d01a2540e79, type: 3}
+    - {fileID: 2800000, guid: 8758139fd70f59b499e79eac5d680c22, type: 3}
+    - {fileID: 2800000, guid: 4458d0021c6feef4e907c5b9e5b1bb04, type: 3}
+    - {fileID: 2800000, guid: d53e8e62dc837da4b86cacd14ef02588, type: 3}
+    - {fileID: 2800000, guid: e39d9835113c3f04db3186c8a84892ca, type: 3}
+    - {fileID: 2800000, guid: 672f9c5a1ac315a44bb26306ae19dbcd, type: 3}
+    - {fileID: 2800000, guid: 227d4e8cf9a4edf4f84ab22449ec88f4, type: 3}
+    - {fileID: 2800000, guid: cd1010cd360d23d43b26382b41e36365, type: 3}
+    - {fileID: 2800000, guid: 05b204db958e04846ba95dda96bcc714, type: 3}
+    - {fileID: 2800000, guid: e06b91a2290a2f741b36206e1e420f67, type: 3}
+    - {fileID: 2800000, guid: ef6c4c32fed3ae249bc7f81b585bde76, type: 3}
+    - {fileID: 2800000, guid: c872f79aeaea74a4297b96af657bae1c, type: 3}
+    - {fileID: 2800000, guid: 7dfe609c067edc345b2a9b3f6cd37025, type: 3}
+    - {fileID: 2800000, guid: 1ba08f5b00c072843a4107306c811be3, type: 3}
+    - {fileID: 2800000, guid: 07b8bef9fdb9f4444a2f838c530682f8, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: dba43b405f93e0146a9647cd12df9822, type: 3}
+  - {fileID: 21300000, guid: 00d6d3e12366d4248ba5a41290ecac4c, type: 3}
+  - {fileID: 21300000, guid: 4458d0021c6feef4e907c5b9e5b1bb04, type: 3}
+  - {fileID: 21300000, guid: 0458a7024240e7241884b8fe021b7f70, type: 3}
+  - {fileID: 21300000, guid: ef6c4c32fed3ae249bc7f81b585bde76, type: 3}
+  - {fileID: 21300000, guid: 59c624422b8478d42839e7368ed32f92, type: 3}
+  - {fileID: 21300000, guid: d53e8e62dc837da4b86cacd14ef02588, type: 3}
+  - {fileID: 21300000, guid: e06b91a2290a2f741b36206e1e420f67, type: 3}
+  - {fileID: 21300000, guid: 51fd7b3326f6859468eb8d01a2540e79, type: 3}
+  - {fileID: 21300000, guid: e39d9835113c3f04db3186c8a84892ca, type: 3}
+  - {fileID: 21300000, guid: 3222d44938a075f4fb4346ea37068448, type: 3}
+  - {fileID: 21300000, guid: 0e6188c9764da184bbab5ea2ca52d30b, type: 3}
+  - {fileID: 21300000, guid: 07b8bef9fdb9f4444a2f838c530682f8, type: 3}
+  - {fileID: 21300000, guid: 4f25e23a057f2834f95497be9c480685, type: 3}
+  - {fileID: 21300000, guid: 672f9c5a1ac315a44bb26306ae19dbcd, type: 3}
+  - {fileID: 21300000, guid: 1150b76a378e6e14e920f678a46b4e5f, type: 3}
+  - {fileID: 21300000, guid: c872f79aeaea74a4297b96af657bae1c, type: 3}
+  - {fileID: 21300000, guid: 1ba08f5b00c072843a4107306c811be3, type: 3}
+  - {fileID: 21300000, guid: 05b204db958e04846ba95dda96bcc714, type: 3}
+  - {fileID: 21300000, guid: 227d4e8cf9a4edf4f84ab22449ec88f4, type: 3}
+  - {fileID: 21300000, guid: 7dfe609c067edc345b2a9b3f6cd37025, type: 3}
+  - {fileID: 21300000, guid: cd1010cd360d23d43b26382b41e36365, type: 3}
+  - {fileID: 21300000, guid: 8758139fd70f59b499e79eac5d680c22, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Dislike_BTn
+  - DataLayer_Bar_1
+  - Heading_highlighter_Effect
+  - Glow_Effect_onStar
+  - Side_Effect_1
+  - BackLayerof_Heading
+  - Home_ICON_1
+  - Purchase_pass_LayerBG
+  - GreyStar_Level_Complete
+  - Like_BTN
+  - Discount_Tag_2
+  - ForTotalReward
+  - Without_pass
+  - Dotted_Effect_1
+  - LikeDislikeBG_1
+  - Effect_1_Mid
+  - Star_Level_Complete
+  - Vide-Ad_icon
+  - ProgressionBar_BG_1
+  - PlayerTextBar_1BG
+  - Victory_Back_Effect
+  - Profile_BG_Layer
+  - Heading_BG_1
+  m_RenderDataMap: {}
+  m_Tag: MissionCompleteAndFailed
+  m_IsVariant: 0

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "706451631849",
+    "project_id": "pro-sniper-gun-shooting-games",
+    "storage_bucket": "pro-sniper-gun-shooting-games.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706451631849:android:371da43385dd0315c90a78",
+        "android_client_info": {
+          "package_name": "com.trilogix.sniper.gun.shooting"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpSwJ8Li8rKWeG4ESYdzizTndfZ8TyWSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

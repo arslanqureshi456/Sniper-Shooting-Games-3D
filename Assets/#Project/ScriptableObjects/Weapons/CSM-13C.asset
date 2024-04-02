@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e3512b2f779b4499694ed01dae456c, type: 3}
+  m_Name: CSM-13C
+  m_EditorClassIdentifier: 
+  _name: CSM-13C
+  _goldPrice: 0
+  _spPrice: 2850
+  _baseDamage: 40
+  _maxDamage: 40
+  _baseReloadTime: 2.5
+  _maxReloadTime: 2.5
+  _baseZoom: 40
+  _maxZoom: 40
+  _baseMagzineSize: 30
+  _maxMagzineSize: 30
+  _baseNumberOfMagzine: 5
+  _maxNumberOfMagzine: 5
+  _baseFireRate: 0.101
+  _maxFireRate: 0.101
+  _baseRange: 100
+  _maxRange: 100
+  _baseAccuracy: 1
+  _maxAccuracy: 1
+  _baseSpread: 0.02
+  _MaxSpread: 0.02
+  _baseKickUp: 3
+  _baseKickSide: 0.3
+  _baseClimbSide: 0.6
+  _baseViewClimbOff: 1
+  _purchased: 0
+  _equipped: 0
+  isComingSoon: 0
+  PrefsIndex: 9
+  DiscountPriceID: dis_csm_13c
+  RealPriceID: dis_csm_13c
+  Category: Assault
+  OfferIndex: -1
+  Desc: Classic Murder
+  Code: A3-P
+  ClassColor: {r: 0.4392157, g: 0.6784314, b: 0.2784314, a: 1}
+  Class: Common
+  perkPoints: 142
+  adCount: 2

@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Gameplay
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 65
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 0db421e1455469b45ac89a381a314ce6, type: 3}
+    - {fileID: 2800000, guid: 846c634439228364b8b58befe5a3bb95, type: 3}
+    - {fileID: 2800000, guid: 5d5586540b24ab74d92923a0691c42c5, type: 3}
+    - {fileID: 2800000, guid: fc03e91efaaeedf40bd323a379139bec, type: 3}
+    - {fileID: 2800000, guid: c21c6e9e407d569458529db9fab02746, type: 3}
+    - {fileID: 2800000, guid: 76426789188f90e45ab65e30d35d2011, type: 3}
+    - {fileID: 2800000, guid: d31eb5e0e03aed849be7cb8e9f668c2a, type: 3}
+    - {fileID: 2800000, guid: eb038ea8d3c43b44fb5234983145ca4a, type: 3}
+    - {fileID: 2800000, guid: 79c1dc28c50e18740867d8208fe31761, type: 3}
+    - {fileID: 2800000, guid: bb67314d769164248acbf1331325e9bb, type: 3}
+    - {fileID: 2800000, guid: f3d621cffaad2e64fa7357d300921b1c, type: 3}
+    - {fileID: 2800000, guid: a27e84eebe1a8cf408074db86dcd52d9, type: 3}
+    - {fileID: 2800000, guid: a5d6a3e1d2a18834d94e57988f06b5fe, type: 3}
+    - {fileID: 2800000, guid: a7b81415c25cad044b9c645cfe490d33, type: 3}
+    - {fileID: 2800000, guid: a50b718a106be2c47ac898f101054e67, type: 3}
+    - {fileID: 2800000, guid: f3532b85de1932941a5a69cd2591a7a4, type: 3}
+    - {fileID: 2800000, guid: 4da32c5b843c21d4e87be305aed09a75, type: 3}
+    - {fileID: 2800000, guid: ca4cd91b8ecef7f4d9b2bb543a8d5067, type: 3}
+    - {fileID: 2800000, guid: 104bc09fecb87ce47a1d21fbf5b0028e, type: 3}
+    - {fileID: 2800000, guid: 872a91f6ab93c9e4995d4e82530c92b6, type: 3}
+    - {fileID: 2800000, guid: 65b7d299647c24643a7f5668d83c5141, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d31eb5e0e03aed849be7cb8e9f668c2a, type: 3}
+  - {fileID: 21300000, guid: 0db421e1455469b45ac89a381a314ce6, type: 3}
+  - {fileID: 21300000, guid: a5d6a3e1d2a18834d94e57988f06b5fe, type: 3}
+  - {fileID: 21300000, guid: 846c634439228364b8b58befe5a3bb95, type: 3}
+  - {fileID: 21300000, guid: 5d5586540b24ab74d92923a0691c42c5, type: 3}
+  - {fileID: 21300000, guid: a7b81415c25cad044b9c645cfe490d33, type: 3}
+  - {fileID: 21300000, guid: f3532b85de1932941a5a69cd2591a7a4, type: 3}
+  - {fileID: 21300000, guid: 872a91f6ab93c9e4995d4e82530c92b6, type: 3}
+  - {fileID: 21300000, guid: 79c1dc28c50e18740867d8208fe31761, type: 3}
+  - {fileID: 21300000, guid: eb038ea8d3c43b44fb5234983145ca4a, type: 3}
+  - {fileID: 21300000, guid: 76426789188f90e45ab65e30d35d2011, type: 3}
+  - {fileID: 21300000, guid: 65b7d299647c24643a7f5668d83c5141, type: 3}
+  - {fileID: 21300000, guid: a50b718a106be2c47ac898f101054e67, type: 3}
+  - {fileID: 21300000, guid: ca4cd91b8ecef7f4d9b2bb543a8d5067, type: 3}
+  - {fileID: 21300000, guid: 4da32c5b843c21d4e87be305aed09a75, type: 3}
+  - {fileID: 21300000, guid: bb67314d769164248acbf1331325e9bb, type: 3}
+  - {fileID: 21300000, guid: fc03e91efaaeedf40bd323a379139bec, type: 3}
+  - {fileID: 21300000, guid: c21c6e9e407d569458529db9fab02746, type: 3}
+  - {fileID: 21300000, guid: a27e84eebe1a8cf408074db86dcd52d9, type: 3}
+  - {fileID: 21300000, guid: 104bc09fecb87ce47a1d21fbf5b0028e, type: 3}
+  - {fileID: 21300000, guid: f3d621cffaad2e64fa7357d300921b1c, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - help_icon
+  - Couch_icon
+  - Next_icon
+  - Enemy_icon
+  - Fire+Zoom_BTN
+  - Pause_icon
+  - Player_icon_movement_1
+  - tran
+  - Joystick Controller
+  - Inject_ICON
+  - headshot
+  - Zoom_ICON
+  - Pistol_1
+  - Restart_icon
+  - ResetSetting_BTN
+  - Joystick_icon
+  - Fire_icon
+  - Gernade_ICON
+  - Mini_Map_BOX_Area
+  - SaveSetting_BTN
+  - Jump_1
+  m_RenderDataMap: {}
+  m_Tag: Gameplay
+  m_IsVariant: 0
