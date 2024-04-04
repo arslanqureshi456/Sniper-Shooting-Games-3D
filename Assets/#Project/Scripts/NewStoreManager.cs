@@ -136,15 +136,7 @@ public class NewStoreManager : MonoBehaviour
         {
             try
             {
-                if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-                {
-                    addsAvailibleTexts[i].SetActive(true);
-                    addsNotAvailibleTexts[i].SetActive(false);
-#if UNITY_EDITOR
-                    Debug.Log("rewarded loaded");
-#endif
-                }
-                else if (UnityAdsManager.Instance.IsRewardedVideoReady())
+                if (AdsManager_AdmobMediation.Instance.IsRewardedLoaded())
                 {
                     addsAvailibleTexts[i].SetActive(true);
                     addsNotAvailibleTexts[i].SetActive(false);
@@ -289,11 +281,7 @@ public class NewStoreManager : MonoBehaviour
         EnableButton(spPressedButton);
         EnablePanel(spPanel);
         EnableValues(GoldValue);
-        // Initialize Admob Rewarded , If Not Initialized
-        if (!GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-        {
-            GoogleMobileAdsManager.Instance.RequestRewarded();
-        }
+        
     }
     public void _FreeRewardsButton()
     {

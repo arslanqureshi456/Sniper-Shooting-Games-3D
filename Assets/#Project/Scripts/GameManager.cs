@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-//using Firebase.Analytics;
+using Firebase.Analytics;
 
 public class GameManager : MonoBehaviour
 {
@@ -297,11 +297,9 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GoogleMobileAdsManager.handleFullScreenAdClose += DelayedAddsShowBanner;
-
         try
         {
-            GoogleMobileAdsManager.Instance.RePosition(GoogleMobileAds.Api.AdPosition.BottomLeft);
+            
             fpsUICanvasPanel.SetActive(false);
             fpsUICanvasPanel1.SetActive(false);
             objectiveStats = new int[(int)AssaultLevels.LevelConidtions.totalCount];
@@ -580,10 +578,7 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            GoogleMobileAdsManager.Instance.HideMedBanner();
-            GoogleMobileAdsManager.Instance.RequestInterstitial();
-            // StartCoroutine(DelayedAddsShowBannerExtra(1));
-            GoogleMobileAdsManager.Instance.HideBanner();
+            AdsManager_AdmobMediation.Instance.HideBanners();
             RenderSettings.fogMode = FogMode.ExponentialSquared;
             RenderSettings.fogDensity = 0.0025f;
             WeaponBehavior.bulletCount = 0;
@@ -605,67 +600,7 @@ public class GameManager : MonoBehaviour
                 fpsCamera.maximumY = fpsCamera.transform.eulerAngles.y + 85f;
             }
 
-            //if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.SNIPER)
-            //{
-            //    switch (sniperLevelIndex)
-            //    {
-            //        case 1:
-            //            //fpsCamera.minimumX = -81.731f;
-            //            //fpsCamera.maximumX = -81.731f;
-            //            //fpsCamera.minimumY = -5.923f;
-            //            //fpsCamera.maximumY = -5.923f;
-            //            //for (int i = 0; i < SniperLevelObjects.Length; i++)
-            //            //    SniperLevelObjects[i].SetActive(false);
-            //            fpsCamera.rotationX = -81.71725f;
-            //            fpsCamera.rotationY = -5.961714f;
-            //            //StartCoroutine(LockMouse());
-            //            break;
-            //        case 2:
-            //            fpsCamera.rotationX = -41.88387f;
-            //            fpsCamera.rotationY = -4.822535f;
-            //            break;
-            //        case 3:
-            //            fpsCamera.rotationX = -52.402f;
-            //            fpsCamera.rotationY = 3.872973f;
-            //            break;
-            //        case 4:
-            //            fpsCamera.rotationX = 147.7678f;
-            //            fpsCamera.rotationY = -8.593589f;
-            //            break;
-            //        case 5:
-            //            fpsCamera.rotationX = -112.13f;
-            //            fpsCamera.rotationY = 1.859801f;
-            //            break;
-            //        case 6:
-            //            fpsCamera.rotationX = -124.1798f;
-            //            fpsCamera.rotationY = 0.9686397f;
-            //            break;
-            //        case 7:
-            //            fpsCamera.rotationX = -176.7751f;
-            //            fpsCamera.rotationY = -11.75029f;
-            //            break;
-            //        case 8:
-            //            fpsCamera.rotationX = 90.35828f;
-            //            fpsCamera.rotationY = -7.176598f;
-            //            break;
-            //        case 9:
-            //            fpsCamera.rotationX = -112.3715f;
-            //            fpsCamera.rotationY = -2.528543f;
-            //            break;
-            //        case 10:
-            //            fpsCamera.rotationX = 137.5081f;
-            //            fpsCamera.rotationY = -11.78747f;
-            //            break;
-            //    }
-            //}
-
-            //go = GameObject.FindWithTag("EnemySpawnPoint");
-            //Vector3 relativePos = GameObject.FindWithTag("EnemySpawnPoint").transform.position - fpsCamera.transform.position;
-
-            // the second argument, upwards, defaults to Vector3.up
-            //Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            //fpsCamera.rotationX = rotation.eulerAngles.y;
-            //fpsCamera.rotationY = rotation.eulerAngles.x;
+           
             if (PlayerPrefs.GetInt("BloodEffect") == 1)
             {
                 bloodEffect.isOn = true;
@@ -680,7 +615,6 @@ public class GameManager : MonoBehaviour
             backgroundMusicSlider.value = SaveManager.Instance.state.backgroundVolume;
             sprintSpeedSlider.value = SaveManager.Instance.state.sprintSpeed;
 
-           // fpsCamera.sensitivity = fpsCameraCS.sensitivity = SaveManager.Instance.state.controlSensitivity;
             controlSenstivitySlider.value = SaveManager.Instance.state.controlSensitivity;
             fpsPlayer.GetComponent<FPSRigidBodyWalker>().sprintSpeed = SaveManager.Instance.state.sprintSpeed;
 
@@ -688,22 +622,7 @@ public class GameManager : MonoBehaviour
             ToggleFireButtons();
 
             UpdateText();
-            //InitializeTime();
-            // Unity Analytics
-
-            //PlayerPrefs.SetInt("MissionStart_Session", PlayerPrefs.GetInt("MissionStart_Session") + 1);
-            //Analytics.CustomEvent("MissionStart_Session", new Dictionary<string, object>
-            //{
-            //{ "V" + Application.version, PlayerPrefs.GetInt("MissionStart_Session") }
-            //});
-
-            //PlayerPrefs.SetInt("MissionStart", PlayerPrefs.GetInt("MissionStart") + 1);
-            //Debug.Log("MissionStart " + PlayerPrefs.GetInt("MissionStart"));
-            //Analytics.CustomEvent("MissionStart", new Dictionary<string, object>
-            //{
-            //{ "V" + Application.version, PlayerPrefs.GetInt("MissionStart") }
-            //});
-            //Debug.Log("GameStart " + 1);
+            
             Analytics.CustomEvent("GameStart", new Dictionary<string, object>
         {
         { "level_index", 1 }
@@ -713,7 +632,7 @@ public class GameManager : MonoBehaviour
 #endif
             if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.SNIPER)
             {
-                //Debug.Log("LevelStartSniper " + sniperLevelIndex);
+                
                 // new events add for experiment
                 Analytics.CustomEvent("LevelStartSniperMode", new Dictionary<string, object>
             {
@@ -721,15 +640,15 @@ public class GameManager : MonoBehaviour
             });
 
                 // Firebase Event
-                //FirebaseAnalytics.LogEvent("LevelStartSniperMode",
-                //new Parameter("level_index", sniperLevelIndex));
+                FirebaseAnalytics.LogEvent("LevelStartSniperMode",
+                new Parameter("level_index", sniperLevelIndex));
 #if UNITY_EDITOR
                 Debug.Log("CustomEvent: " + "LevelStartSniperMode");
 #endif
             }
             else if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.ASSAULT)
             {
-                //Debug.Log("LevelStartAssault " + levelIndexAnalytics);
+              
                 // new events add for experiment
                 Analytics.CustomEvent("LevelStartAssaultMode", new Dictionary<string, object>
             {
@@ -742,7 +661,7 @@ public class GameManager : MonoBehaviour
             }
             else if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.COVERSTRIKE)
             {
-                //Debug.Log("LevelStartAssault " + levelIndexAnalytics);
+               
                 // new events add for experiment
                 Analytics.CustomEvent("LevelStartCSMode", new Dictionary<string, object>
             {
@@ -878,7 +797,7 @@ public class GameManager : MonoBehaviour
     void ShowBanner()
     {
         GameplayBannerBG.SetActive(true);
-        GoogleMobileAdsManager.Instance.ShowBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.AdaptiveBannerType, GoogleMobileAds.Api.AdPosition.Top);
     }
     
 
@@ -973,13 +892,7 @@ public class GameManager : MonoBehaviour
                         go.SetActive(true);
                     }
                 }
-                //else if (fpsPlayer.InputComponent.firePress)
-                //{
-                //    foreach (GameObject go in fireObjects)
-                //    {
-                //        go.SetActive(false);
-                //    }
-                //}
+                
             }
         }
     }
@@ -1095,31 +1008,12 @@ public class GameManager : MonoBehaviour
 
     public void DisableLevelCompleteButtons()
     {
-        //homeButton.SetActive(false);
-        //restartButton.SetActive(false);
         nextButton.SetActive(false);
-        homebutton_complete.SetActive(false);
-        //nextButton1.SetActive(false);
     }
 
     private bool CheckGunsReward()
     {
-        //if(fpsPlayer.hitPoints <= 15)
-        //{
-        //    if(!PlayerPrefs.HasKey("CompleteGunReward"))
-        //    {
-        //        if (PlayerPrefs.GetInt("weapon17") == 1)
-        //            return false;
-        //        gunsRewardsPanel.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
-        //        currentGunReward = 0;
-        //        PlayerPrefs.SetInt("CompleteGunReward", 1);
-        //        GunsRewardLoseText.SetActive(true);
-
-        //        PlayerPrefs.SetInt("weapon17", 1);
-        //        PlayerPrefs.SetInt("AssaultEquipped",17);
-        //        return true;
-        //    }
-        //}else
+        
         if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.ASSAULT && PlayerPrefs.GetInt("currentLevel") == 5)
         {
             if (PlayerPrefs.GetInt("weapon12") == 1)
@@ -1132,23 +1026,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("AssaultEquipped", 12);
             return true;
         }
-        //else if (fpsPlayer.hitPoints <= 15)
-        //{
-        //    if (PlayerPrefs.GetInt("CompleteGunReward") == 2)
-        //    {
-        //        if (PlayerPrefs.GetInt("weapon7") == 1)
-        //            return false;
-        //        gunsRewardsPanel.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
-        //        currentGunReward = 2;
-        //        PlayerPrefs.SetInt("CompleteGunReward", 2);
-        //        GunsRewardLoseText.SetActive(true);
-        //        PlayerPrefs.SetInt("PendingGun", 1);
-        //        if (!UnityAdsManager.Instance.IsRewardedVideoReady())
-        //            GunRewardedAd.GetComponent<Button>().interactable = false;
-        //        GunRewardedAd.SetActive(true);
-        //        return true;
-        //    }
-        //}
+        
         else if (PlayerPrefs.GetInt("LastLevel") == 3 && !PlayerPrefs.HasKey("LevelBasedRewardIndex"))
         {
             PlayerPrefs.SetInt("LevelBasedRewardIndex", 1);
@@ -1232,15 +1110,17 @@ public class GameManager : MonoBehaviour
         switch (currentGunReward)
         {
             case 2:
-                UnityAdsManager.isGunAd = true;
+                AdsManager_AdmobMediation.isGunAd = true;
+                AdsManager_Unity.isGunAd = true;
                 notAdseen = true;
-                UnityAdsManager.Instance.ShowUnityRewardedVideoAd();
+                FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
                 break;
 
             case 4:
-                UnityAdsManager.isGunAd = true;
+                AdsManager_AdmobMediation.isGunAd = true;
+                AdsManager_Unity.isGunAd = true;
                 notAdseen = true;
-                UnityAdsManager.Instance.ShowUnityRewardedVideoAd();
+                FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
                 break;
         }
         gunsRewardsPanel.SetActive(false);
@@ -1260,18 +1140,17 @@ public class GameManager : MonoBehaviour
 #endif
         if (isLevelFailed)
         {
-           // GoogleMobileAdsManager.Instance.ShowMedBanner();
+            AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
             yield break;
         }
         
         nextButton.SetActive(true);
-        homebutton_complete.SetActive(true);
 
         yield return new WaitForSeconds(0.15f);
 
         Screen.SetResolution(PlayerPrefs.GetInt("Width"), PlayerPrefs.GetInt("Height"), true, 60);
 
-       // GoogleMobileAdsManager.Instance.ShowMedBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
     }
 
     private void ShowPanel(GameObject panelToShow)
@@ -1283,11 +1162,8 @@ public class GameManager : MonoBehaviour
         levelFailPanel.SetActive(false);
         levelCompletePanel.SetActive(false);
         levelUpPanel.SetActive(false);
-        //rateUsPanel.SetActive(false);
-        //removeAdsPanel.SetActive(false);
         rewardPanel.SetActive(false);
         loadingPanel.SetActive(false);
-
         panelToShow.SetActive(true);
     }
 
@@ -1296,8 +1172,7 @@ public class GameManager : MonoBehaviour
         if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.SNIPER)
         {
             miniMap.SetActive(false);
-            //GoogleMobileAdsManager.Instance.HideBanner();
-            //GameplayBannerBG.SetActive(false);
+            AdsManager_AdmobMediation.Instance.HideBanners();
         }
 
         if (sniper_1.activeInHierarchy || sniper_2.activeInHierarchy)
@@ -1324,25 +1199,9 @@ public class GameManager : MonoBehaviour
         if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.SNIPER)
         {
             miniMap.SetActive(true);
-           // GameplayBannerBG.SetActive(true);
-            //   GoogleMobileAdsManager.Instance.ShowBanner();
+            AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.AdaptiveBannerType, GoogleMobileAds.Api.AdPosition.Top);
         }
 
-        //if (!sniper_1.activeInHierarchy || sniper_1_Updated.activeInHierarchy)
-        //{
-        //    scopeImage_1.SetActive(false);
-        //    scopeImage_2.SetActive(false);
-        //    sniper_1.SetActive(true);
-        //    sniper_1_Updated.SetActive(true);
-        //}
-
-        //if (!sniper_2.activeInHierarchy || sniper_2_Updated.activeInHierarchy)
-        //{
-        //    scopeImage_1.SetActive(false);
-        //    scopeImage_2.SetActive(false);
-        //    sniper_2.SetActive(true);
-        //    sniper_2_Updated.SetActive(true);
-        //}
         if (!sniper_1.activeInHierarchy || sniper_2.activeInHierarchy)
         {
             scopeImage_1.SetActive(false);
@@ -1381,9 +1240,7 @@ public class GameManager : MonoBehaviour
 
     public void HideHeadShotText()
     {
-        //animatedHeadShot.enabled = false;
-        //animatedHeadShotText.SetActive(false);
-        //animatedHeadShotText_2.SetActive(false);
+        
     }
 
     //public void ShowHeadShotText(Transform transform)
@@ -1531,8 +1388,8 @@ public class GameManager : MonoBehaviour
             });
 
             // Firebase Event
-            //FirebaseAnalytics.LogEvent("LevelFailSniper",
-            //new Parameter("level_index", sniperLevelIndex));
+            FirebaseAnalytics.LogEvent("LevelFailSniper",
+            new Parameter("level_index", sniperLevelIndex));
             HandleAnalyticsResult(result);
 #if UNITY_EDITOR
             Debug.Log("CustomEvent: " + "FailSniper");
@@ -1565,10 +1422,8 @@ public class GameManager : MonoBehaviour
         mainCamera.farClipPlane = 1;
         DisableHudIcons();
         
-        //levelFailReasonText.text = System.String.Empty + levelFailReason;
         // Ads
         GameplayBannerBG.SetActive(false);
-        GoogleMobileAdsManager.Instance.HideBanner();
         //UpdatePrefs();
         ShowPanel(levelFailPanel);
 
@@ -1582,17 +1437,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.3f);
         UpdatePrefs();
         failedButtons.SetActive(true);
-       
 
-        if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-        {
-            GoogleMobileAdsManager.Instance.HideMedBanner();
-            GoogleMobileAdsManager.Instance.ShowInterstitial();
-        }
-        else
-        {
-            GoogleMobileAdsManager.Instance.ShowMedBanner();
-        }
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        GameManagerStatic.Instance.interstitial = "";
+        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+        
         yield return new WaitForSecondsRealtime(0.1f);
         // Enabling Failed Buttons
         failedLoadoutButton.GetComponent<Button>().interactable = true;
@@ -1715,8 +1564,8 @@ public class GameManager : MonoBehaviour
                     { "AverageFPS", FPSCounter.instance.avgFPS}
                 });
                 // Firebase Event
-                //FirebaseAnalytics.LogEvent("LevelCompleteSniper",
-                //new Parameter("level_index", sniperLevelIndex));
+                FirebaseAnalytics.LogEvent("LevelCompleteSniper",
+                new Parameter("level_index", sniperLevelIndex));
 #if UNITY_EDITOR
                 Debug.Log("CustomEvent: " + "LevelCompleteSniperMode");
 #endif
@@ -1763,19 +1612,6 @@ public class GameManager : MonoBehaviour
                 playerweapons.GetComponent<GunSway>().enabled = false;
             }
             catch { }
-            // Loading Ads After Level Completion Here
-            //GoogleMobileAdsManager.Instance.RequestInterstitial();
-           
-        }
-
-        if(gold >= 1)
-        {
-            doubleRewardButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            doubleRewardButton.gameObject.SetActive(false);
-            restartButton.transform.position = restartButton2Position.position;
         }
     }
 
@@ -1801,10 +1637,6 @@ public class GameManager : MonoBehaviour
     private void DelayedFinishVoice()
     {
         AudioManager.instance.PlayAwsome();
-        //if (Random.Range(0, 2) > 0)
-        //    AudioManager.instance.PlayAwsome();
-        //else
-        //    AudioManager.instance.PlayGreatJob();
     }
 
     private IEnumerator GiveReward()
@@ -1862,7 +1694,7 @@ public class GameManager : MonoBehaviour
     private void SetObjectivesUI()
     {
         GameManager.Instance.objectiveStats[(int)AssaultLevels.LevelConidtions.isMinBullets] = WeaponBehavior.bulletCount;
-        //Debug.Log("BUllets fired  " + WeaponBehavior.bulletCount);
+        
         GameManager.Instance.objectiveStats[(int)AssaultLevels.LevelConidtions.isAccuracy] = (int)((float)(totalEnemies * 7) / (float)WeaponBehavior.bulletCount);
         sucessfulObjectives = 0;
         for (int i = 0; i < 3; i++)
@@ -1888,7 +1720,7 @@ public class GameManager : MonoBehaviour
         sucessfulObjectives = ExperienceVal = 0;
         for (int i = 0; i < activeObjectives.Conditions.Length; i++)
         {
-            //Debug.Log(" condition  " + activeObjectives.Conditions[i].condition + "  val " + objectiveStats[(int)activeObjectives.Conditions[i].condition] + "  comp  " + activeObjectives.Conditions[i].value);
+            
             if (!activeObjectives.Conditions[i].isSmaller && objectiveStats[(int)activeObjectives.Conditions[i].condition] >= activeObjectives.Conditions[i].value)
             {
                 objectivesCompleted[i] = 1;
@@ -1922,9 +1754,6 @@ public class GameManager : MonoBehaviour
                 levelRatioCurrentLevel = "" + (count) + "/15";
                 levelRatio = levelRatioCurrentLevel;
                 currentProgress = (int)((((float)(count)) / 56f) * 100);
-                //levelRatioCurrentLevel = "" + (PlayerPrefs.GetInt("sniperCurrentLevel")) + "/10";
-                //levelRatio = "" + (PlayerPrefs.GetInt("sniperNextLevel") - 1) + "/10";
-                //currentProgress = (int)(((float)(PlayerPrefs.GetInt("sniperNextLevel") - 1) / 10f) * 100);
                 break;
 
             case LevelSelectionNew.modeType.ASSAULT:
@@ -1939,9 +1768,6 @@ public class GameManager : MonoBehaviour
                 levelRatioCurrentLevel = "" + (count) + "/80";
                 levelRatio = levelRatioCurrentLevel;
                 currentProgress = (int)((((float)(count)) / 80f) * 100);
-                //levelRatioCurrentLevel = "" + (PlayerPrefs.GetInt("currentLevel")) + "/80";
-                //levelRatio = "" + (PlayerPrefs.GetInt("nextLevel") - 1) + "/80";
-                //currentProgress = (int)((((float)(PlayerPrefs.GetInt("nextLevel") - 1)) / 80) * 100);
                 break;
 
             case LevelSelectionNew.modeType.COVERSTRIKE:
@@ -1957,12 +1783,6 @@ public class GameManager : MonoBehaviour
                 levelRatioCurrentLevel = "" + (count) + "/10";
                 levelRatio = levelRatioCurrentLevel;
                 currentProgress = (int)((((float)(count)) / 10f) * 100);
-                //ratioText.text = (count) + "/10";
-                //fillImage.fillAmount = (count) / 10f;
-
-                //levelRatioCurrentLevel = "" + (PlayerPrefs.GetInt("CoverStrikeCurrentLevel") - 1) + "/10";
-                //levelRatio = "" + (PlayerPrefs.GetInt("CoverStrikeNextLevel") - 1) + "/10";
-                //currentProgress = (int)((((float)(PlayerPrefs.GetInt("CoverStrikeNextLevel") - 1)) / 10f) * 100);
                 break;
         }
 
@@ -1974,8 +1794,6 @@ public class GameManager : MonoBehaviour
             objectivesPerfectStars.SetActive(true);
         else
         {
-            //doubleRewardButton.gameObject.SetActive(false);
-            if(sniperLevelIndex!=1)
             restartButton.SetActive(true);
         }
     }
@@ -1999,47 +1817,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //public void UpdatePassScore()
-    //{
-    //    float pass = PlayerPrefs.GetFloat("Pass_Level");
-
-    //    LerpAmount = 0;
-    //    TargetKills = (int)((enemyKilled * killMultiplier * pass) / 4);
-
-    //    TargetHead = (int)((headShot * headShotMultiplier * pass) / 4);
-
-    //    TargetObjectives = (int)((levelMultiplier * pass) / 4);
-
-    //    TargetTime = (int)((((tempTime / 30) * timeMultiplier) * pass) / 4);
-
-    //    //sp = (int)((totalReward - tempReward) / 40);
-    //    PlayerPrefs.SetInt("TempExperience", (int)((ExperinceVal * pass) - (ExperinceVal * tempPass)));
-    //    TargetGold = (int)(ExperinceVal / 4 * pass);
-
-    //    //PlayerPrefs.SetInt("Experience", PlayerPrefs.GetInt("Experience") + totalReward);
-    //    // Gold
-    //    PlayerPrefs.SetInt("gold", PlayerPrefs.GetInt("gold") - gold);
-    //    PlayerPrefs.SetInt("gold", PlayerPrefs.GetInt("gold") + (int)TargetGold);
-    //    // SP
-    //    PlayerPrefs.SetInt("tempsecretPoints", PlayerPrefs.GetInt("tempsecretPoints") - sp);
-    //    PlayerPrefs.SetInt("tempsecretPoints", PlayerPrefs.GetInt("tempsecretPoints") + (int)(ExperinceVal / 20 * pass));
-    //    //PlayerPrefs.SetInt("Experience", PlayerPrefs.GetInt("Experience") + totalReward);
-    //    // Gold
-    //    // SP
-    //    //PlayerPrefs.SetInt("secretPoints", PlayerPrefs.GetInt("secretPoints") + sp);
-    //    switch (pass)
-    //    {
-    //        case 1.5f:
-    //            passText.text = "PREMIUM PASS 1";
-    //            break;
-    //        case 2f:
-    //            passText.text = "PREMIUM PASS 2";
-    //            break;
-    //        case 3f:
-    //            passText.text = "PREMIUM PASS 3";
-    //            break;
-    //    }
-    //}
     private void CalculateScore()
     {
         SetObjectivesUI();
@@ -2118,11 +1895,6 @@ public class GameManager : MonoBehaviour
                 {
                     PlayerPrefs.SetInt("sniperCurrentLevel", PlayerPrefs.GetInt("sniperNextLevel"));
                 }
-                //else if (PlayerPrefs.GetInt("sniperLevelUnlocked-16").Equals(1))
-                //{
-                //    PlayerPrefs.SetInt("sniperNextLevel", PlayerPrefs.GetInt("sniperCurrentLevel") + 1);
-                //    PlayerPrefs.SetInt("sniperCurrentLevel", PlayerPrefs.GetInt("sniperNextLevel"));
-                //}
                 break;
 
             case LevelSelectionNew.modeType.ASSAULT:
@@ -2217,7 +1989,6 @@ public class GameManager : MonoBehaviour
 
     private int weaponCount = 0;
     private GunScript[] _gunScripts;
-    static int completeads;
     private IEnumerator ShowLevelComplete()
     {
 #if UNITY_ANDROID
@@ -2245,42 +2016,9 @@ public class GameManager : MonoBehaviour
 
         // Ads
         GameplayBannerBG.SetActive(false);
-        GoogleMobileAdsManager.Instance.HideBanner();
-        if(completeads == 0)
-        {
-            if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-            {
-                GoogleMobileAdsManager.Instance.HideMedBanner();
-                GoogleMobileAdsManager.Instance.ShowInterstitial();
-            }
-            else
-            {
-                GoogleMobileAdsManager.Instance.ShowMedBanner();
-                GoogleMobileAdsManager.Instance.RequestInterstitial();
-            }
-            completeads = 1;
-        }
-        else if(completeads == 1)
-        {
-            if (UnityAdsManager.Instance.IsVideoReady())
-            {
-                GoogleMobileAdsManager.Instance.HideMedBanner();
-                UnityAdsManager.Instance.ShowUnityVideoAd();
-            }
-            else if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-            {
-                GoogleMobileAdsManager.Instance.HideMedBanner();
-                GoogleMobileAdsManager.Instance.ShowInterstitial();
-            }
-            else
-            {
-                GoogleMobileAdsManager.Instance.ShowMedBanner();
-                GoogleMobileAdsManager.Instance.RequestInterstitial();
-            }
-            completeads = 0;
-        }
-
-        
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        GameManagerStatic.Instance.interstitial = "";
+        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
         
         mainCamera.farClipPlane = 1;
 
@@ -2303,9 +2041,6 @@ public class GameManager : MonoBehaviour
         // Enabling Complete Buttons
         nextButton.GetComponent<Button>().interactable = true;
 
-        //tryNewModeButton.GetComponent<Button>().interactable = true;
-        //tryNewWeaponButton.GetComponent<Button>().interactable = true;
-        //loadoutButton.GetComponent<Button>().interactable = true;
         restartButton.GetComponent<Button>().interactable = true;
         doubleRewardButton.GetComponent<Button>().interactable = true;
         homebutton_complete.GetComponent<Button>().interactable = true;
@@ -2343,41 +2078,7 @@ public class GameManager : MonoBehaviour
 
     public void ShowLevelUp()
     {
-        //if (!PlayerPrefs.HasKey("Experience"))
-        //{
-        //    return;
-        //}
-        //else
-        //{
-        //    LastLevel = PlayerPrefs.GetInt("LastLevel");
-        //    CurrentExp = PlayerPrefs.GetInt("Experience");
-        //    PlayerPrefs.SetInt("PreviousLevel", LastLevel);
-
-        //    while (CurrentExp > ((LastLevel + 1) * 640) + (340 * MultiPliyer(LastLevel + 1)))//440
-        //    {
-        //        if (CurrentExp > ((LastLevel + 1) * 640) + (340 * MultiPliyer(LastLevel + 1)))
-        //        {
-        //            LastLevel++;
-        //            PlayerPrefs.SetInt("LastLevel", LastLevel);
-
-        //            levelup = true;
-        //        }
-        //    }
-
-        //if (levelUpPanel != null && PlayerLevel.isLevelUp == true)
-        //{
-        //    levelUp = 1;
-        //    PlayerLevel.isLevelUp = false;
-        //    levelUpPanel.SetActive(true);
-        //}
-
-        //    int nextDisplay = (LastLevel * 340) + 640;
-        //    int currentExp = CurrentExp - (((LastLevel) * 640) + (340 * MultiPliyer(LastLevel)));
-
-        //    PlayerPrefs.SetFloat("Val", (float)currentExp / nextDisplay);
-        //    PlayerPrefs.SetInt("Next", nextDisplay);
-        //    PlayerPrefs.SetInt("CurrentExp", currentExp);
-        //}
+       
     }
 
     private int MultiPliyer(int val)
@@ -2414,10 +2115,8 @@ public class GameManager : MonoBehaviour
         assaultProgressText.SetActive(false);
         coverStrikeProgressText.SetActive(false);
         failedButtons.SetActive(false);
-        GoogleMobileAdsManager.Instance.HideMedBanner();
-        GoogleMobileAdsManager.Instance.ShowBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
         Time.timeScale = 1;
-        //InitializeTime();
         mainCamera.farClipPlane = 250;
         if (AudioManager.instance)
             AudioManager.instance.NormalClick();
@@ -2464,15 +2163,10 @@ public class GameManager : MonoBehaviour
         int randomIndex = Random.Range(0, 3);
         switch (randomIndex)
         {
-            //case 0:
-            //    PlayerPrefs.SetInt("secretPoints", PlayerPrefs.GetInt("secretPoints") + sp);
-            //    rewardText.text = "You have been Rewarded with	<size=70><color=orange>Double SP!</color></size>";
-            //    spText.text = System.String.Empty + (sp *= 2);
-            //    break;
             case 0:
                 PlayerPrefs.SetInt("gold", PlayerPrefs.GetInt("gold") + gold);
                 rewardText.text = "You have been Rewarded with	 <size=70><color=orange>Double Gold!</color></size>";
-                //goldText.text = System.String.Empty + (gold *= 2);
+              
                 break;
 
             case 1:
@@ -2487,8 +2181,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Ads
-        GoogleMobileAdsManager.Instance.HideMedBanner();
-        GoogleMobileAdsManager.Instance.ShowBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
 
         videoRewardPanel.SetActive(true);
     }
@@ -2538,77 +2231,12 @@ public class GameManager : MonoBehaviour
     //ADS
     private void ShowAdmob()
     {
-        if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-        {
-            GoogleMobileAdsManager.Instance.ShowInterstitial();
-#if UNITY_EDITOR
-            Debug.Log("Admob1");
-#endif
-        }
-    }
-
-    private void ShowUnity()
-    {
-        if (UnityAdsManager.Instance.IsVideoReady())
-        {
-            UnityAdsManager.Instance.ShowUnityVideoAd();
-        }
-    }
-
-    private void ShowAdmob_Unity()
-    {
-        if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-        {
-            GoogleMobileAdsManager.Instance.ShowInterstitial();
-#if UNITY_EDITOR
-            Debug.Log("Admob2");
-#endif
-        }
-        else if (UnityAdsManager.Instance.IsVideoReady())
-        {
-            UnityAdsManager.Instance.ShowUnityVideoAd();
-        }
-    }
-
-    private void ShowUnity_Admob()
-    {
-        if (UnityAdsManager.Instance.IsVideoReady())
-        {
-            UnityAdsManager.Instance.ShowUnityVideoAd();
-        }
-        else if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-        {
-            GoogleMobileAdsManager.Instance.ShowInterstitial();
-#if UNITY_EDITOR
-            Debug.Log("Admob3");
-#endif
-        }
+        GameManagerStatic.Instance.interstitial = "";
+        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
     }
 
     private static int completeCount_1, completeCount_2, completeCount_3, sniperCompleteCount = 0;
-    // Ads
-    //public IEnumerator LevelCompleteAd(float delay)
-    //{
-    //}
-
-    //public IEnumerator LevelFailAd(float delay)
-    //{
-    //    Screen.SetResolution(PlayerPrefs.GetInt("Width"), PlayerPrefs.GetInt("Height"), true, 60);
-
-    //    yield return new WaitForSecondsRealtime(delay);
-    //    // Remove Ads
-    //    switch (levelIndex)
-    //    {
-    //        case 14:
-    //        case 25:
-    //            // Ads
-    //            GoogleMobileAdsManager.Instance.HideMedBanner();
-    //            GoogleMobileAdsManager.Instance.ShowBanner();
-    //            removeAdsPanel.SetActive(true);
-    //            break;
-    //    }
-    //}
-
+   
     #region Button Methods
 
     private static int pauseCount_1, pauseCount_2, pauseCount_3, sniperPauseCount = 0;
@@ -2622,25 +2250,10 @@ public class GameManager : MonoBehaviour
         CalculateScore();
         
         GameplayBannerBG.SetActive(false);
-            GoogleMobileAdsManager.Instance.HideBanner();
-
-        if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-        {
-            GoogleMobileAdsManager.Instance.HideMedBanner();
-            GoogleMobileAdsManager.Instance.ShowInterstitial();
-        }
-        else if (UnityAdsManager.Instance.IsVideoReady())
-        {
-            GoogleMobileAdsManager.Instance.HideMedBanner();
-            UnityAdsManager.Instance.ShowUnityVideoAd();
-        }
-        else
-        {
-            GoogleMobileAdsManager.Instance.ShowMedBanner();
-            GoogleMobileAdsManager.Instance.RequestInterstitial();
-        }
-        //Invoke("DelayedAddsShowBanner" , 0.5f);
-
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        GameManagerStatic.Instance.interstitial = "";
+        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+       
         mainCamera.farClipPlane = 1;
 
         DisableHudIcons();
@@ -2658,28 +2271,13 @@ public class GameManager : MonoBehaviour
          Time.timeScale = 0;
     }
 
-    //private IEnumerator DelayedAddsShowBannerExtra(int val)
-    //{
-    //    yield return new WaitForSecondsRealtime(2.5f);
-    //    switch (val)
-    //    {
-    //        case 0:
-    //            GoogleMobileAdsManager.Instance.ShowMedBanner();
-    //            break;
-
-    //        case 1:
-    //            // GoogleMobileAdsManager.Instance.ShowBanner();
-    //            break;
-    //    }
-    //}
+   
     bool isBannerLoaded = false;
     void DelayedAddsShowBanner()
     {
-        if(!isBannerLoaded)
-            GoogleMobileAdsManager.Instance.ShowMedBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
 
         isBannerLoaded = true;
-       // Time.timeScale = 0;
     }
 
     public void _SettingButton()
@@ -2701,9 +2299,9 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0;
 
-        GoogleMobileAdsManager.Instance.ShowMedBanner();
         GameplayBannerBG.SetActive(false);
-        GoogleMobileAdsManager.Instance.HideBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        
     }
 
     public void _CloseSettingButton()
@@ -2744,9 +2342,8 @@ public class GameManager : MonoBehaviour
         }
 
 
-        GoogleMobileAdsManager.Instance.HideMedBanner();
         GameplayBannerBG.SetActive(true);
-        GoogleMobileAdsManager.Instance.ShowBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
     }
 
     public void _ResumeButton()
@@ -2756,12 +2353,7 @@ public class GameManager : MonoBehaviour
 #endif
         // Ads
         pauseButtons.SetActive(false);
-        //sniperProgressText.SetActive(false);
-        //assaultProgressText.SetActive(false);
-        //coverStrikeProgressText.SetActive(false);
-        GoogleMobileAdsManager.Instance.HideMedBanner();
-       // GoogleMobileAdsManager.Instance.ShowBanner();
-        // StartCoroutine(DelayedAddsShowBanner(1));
+        AdsManager_AdmobMediation.Instance.HideBanners();
 
         Time.timeScale = 1;
         successfulObjectivesCount = 0;
@@ -2774,18 +2366,12 @@ public class GameManager : MonoBehaviour
         fpsUICanvasPanel1.SetActive(true);
         levelPausePanel.SetActive(false);
 
-        if (PlayerPrefs.GetInt("ADSUNLOCK") != 1)
-            GoogleMobileAdsManager.Instance.RequestInterstitial();
         if (soldierAnimResetDelegate != null)
             soldierAnimResetDelegate();
 
         countdownPanel.SetActive(true);
-        if (!GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-        {
-            GoogleMobileAdsManager.Instance.RequestInterstitial();
-        }
 
-        GoogleMobileAdsManager.Instance.ShowBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
         GameplayBannerBG.SetActive(true);
     }
 
@@ -2813,7 +2399,7 @@ public class GameManager : MonoBehaviour
         Screen.SetResolution(PlayerPrefs.GetInt("Width"), PlayerPrefs.GetInt("Height"), true, 60);
 
         // Ads
-       // GoogleMobileAdsManager.Instance.HideMedBanner();
+        AdsManager_AdmobMediation.Instance.HideBanners();
         Time.timeScale = 1;
         mainCamera.farClipPlane = 250;
         if (AudioManager.instance)
@@ -2824,7 +2410,18 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("currentLevel", levelIndexAnalytics);
         PlayerPrefs.SetInt("sniperCurrentLevel", sniperLevelIndex);
         PlayerPrefs.SetInt("CoverStrikeCurrentLevel", sniperLevelIndex);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        loadingPanel.SetActive(true);
+        try
+        {
+            if (pauseButtons.activeInHierarchy)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else
+            StartCoroutine(LoadScene());
+        }
+        catch { }
+        
 #if UNITY_EDITOR
         Debug.Log("Current Sniper Level " + sniperLevelIndex);
 # endif
@@ -2851,8 +2448,8 @@ public class GameManager : MonoBehaviour
 #endif
         }
         // Ads
-        //GoogleMobileAdsManager.Instance.HideMedBanner();
-        Invoke("DelayedAddsShowBanner",1);
+        AdsManager_AdmobMediation.Instance.HideBanners();
+        Invoke("ShowHomeAds" , 0.1f);
 
         Time.timeScale = 1;
         mainCamera.farClipPlane = 250;
@@ -2863,14 +2460,19 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         GameManagerStatic.Instance.GunsStoreFrom = 0;
     }
-
+    void ShowHomeAds()
+    {
+        DelayedAddsShowBanner();
+        GameManagerStatic.Instance.interstitial = "Interstitial";
+        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+    }
     public void _LoadOutButton()
     {
 #if UNITY_ANDROID
         Debug.Log("Debug : " + LevelSelectionNew.modeSelection + " Check LoadOut Button");
 #endif
-    // Ads
-    GoogleMobileAdsManager.Instance.HideMedBanner();
+        // Ads
+        AdsManager_AdmobMediation.Instance.HideBanners();
 
         Time.timeScale = 1;
         mainCamera.farClipPlane = 250;
@@ -2886,7 +2488,7 @@ public class GameManager : MonoBehaviour
     public void _PurchaseWeaponButton()
     {
         // Ads
-        GoogleMobileAdsManager.Instance.ShowBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
 
         Time.timeScale = 1;
         mainCamera.farClipPlane = 250;
@@ -2905,10 +2507,6 @@ public class GameManager : MonoBehaviour
 #endif
         if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.SNIPER)
         {
-            //if (sniperLevelIndex < 15)
-            //{
-                //Debug.Log("SniperNext " + sniperLevelIndex + " levelup " + levelUp);
-                //PlayerPrefs.SetInt("sniperCurrentLevel", PlayerPrefs.GetInt("nextLevel"));
 #if UNITY_EDITOR
                 print("SP: " + sp);
                 print("GOLD: " + gold);
@@ -2929,18 +2527,7 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR
                 Debug.Log("CustomEvent: " + "SniperNext");
 #endif
-            //if (isAllLevelCompleted)
-            //{
-            //    isAllLevelCompleted = false;
-            //    GoogleMobileAdsManager.Instance.HideMedBanner();
-            //    GoogleMobileAdsManager.Instance.ShowBanner();
-            //    sniperLevelsCompletedPanel.SetActive(true);
-            //    sniperProgressText.SetActive(false);
-            //    //PlayerPrefs.SetInt("CampMode", 0);//Assault
-            //    //PlayerPrefs.SetInt("Mode", 1);
-            //    //LevelSelectionNew.modeSelection = LevelSelectionNew.modeType.ASSAULT;
-            //    return;
-            //}
+           
             print("currntlevel : "+PlayerPrefs.GetInt("sniperCurrentLevel"));
             if (GameManagerStatic.Instance.lastlevel == 0)
             {
@@ -2950,8 +2537,6 @@ public class GameManager : MonoBehaviour
                 loadingPanel.SetActive(true);
                 try
                 {
-                    //if(PlayerPrefs.GetFloat("SniperComplete") == 1)
-                    //PlayerPrefs.SetInt("sniperCurrentLevel", PlayerPrefs.GetInt("sniperCurrentLevel")+1);
                     StartCoroutine(LoadScene());
                 }
                 catch { }
@@ -2978,14 +2563,14 @@ public class GameManager : MonoBehaviour
             print("SumSP: " + PlayerPrefs.GetInt("secretPoints"));
             print("SumGold: " + PlayerPrefs.GetInt("gold"));
 #endif
-            //Debug.Log("AssaultNext " + levelIndexAnalytics + " levelup " + levelUp);
+          
             PlayerPrefs.SetInt("currentLevel", PlayerPrefs.GetInt("nextLevel"));
             PlayerPrefs.SetInt("LevelCount", PlayerPrefs.GetInt("nextLevel"));
             AnalyticsResult result = Analytics.CustomEvent("AssaultNext", new Dictionary<string, object>
         {
             { "level_index", levelIndexAnalytics },
             { "levelup", levelUp },
-            //{"Liked", Liked },
+            
             {"SP", sp },
             {"Gold", gold },
             { "LoadoutCount", 1 },
@@ -3001,8 +2586,8 @@ public class GameManager : MonoBehaviour
             HandleAnalyticsResult(result);
             if (PlayerPrefs.GetInt("levelUnlocked-80").Equals(1))
             {
-                GoogleMobileAdsManager.Instance.HideMedBanner();
-                GoogleMobileAdsManager.Instance.ShowBanner();
+                AdsManager_AdmobMediation.Instance.HideBanners();
+                AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
                 assaultLevelsCompletedPanel.SetActive(true);
                 assaultProgressText.SetActive(true);
                 PlayerPrefs.SetInt("Mode", 0);
@@ -3012,12 +2597,10 @@ public class GameManager : MonoBehaviour
         }
         else if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.COVERSTRIKE)
         {
-            //Debug.Log("AssaultNext " + levelIndexAnalytics + " levelup " + levelUp);
             AnalyticsResult result = Analytics.CustomEvent("CoverStrikeNext", new Dictionary<string, object>
         {
             { "level_index", sniperLevelIndex },
             { "levelup", levelUp },
-            //{"Liked", Liked },
             {"SP", sp },
             {"Gold", gold },
             { "LoadoutCount", 1 },
@@ -3034,36 +2617,25 @@ public class GameManager : MonoBehaviour
             if (isAllLevelCompleted)
             {
                 isAllLevelCompleted = false;
-                GoogleMobileAdsManager.Instance.HideMedBanner();
-                GoogleMobileAdsManager.Instance.ShowBanner();
+                AdsManager_AdmobMediation.Instance.HideBanners();
+                AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
                 coverStrikeLevelsCompletedPanel.SetActive(true);
                 coverStrikeProgressText.SetActive(true);
                 PlayerPrefs.SetInt("CampMode", 0);//Assault
-                //PlayerPrefs.SetInt("Mode", 0);
-                //LevelSelectionNew.modeSelection = LevelSelectionNew.modeType.ASSAULT;
                 return;
             }
         }
 
         // Ads
-       // GoogleMobileAdsManager.Instance.HideMedBanner();
+        AdsManager_AdmobMediation.Instance.HideBanners();
 
         Time.timeScale = 1;
-        // Collect Garbage
-     //   System.GC.Collect();
 
         if (AudioManager.instance)
             AudioManager.instance.NextLevelSelectSound();
 
         PlayerPrefs.SetInt("MMPopupCount", 0); // For Main Menu Weapon Popup
-                                               //PlayerPrefs.SetInt("currentLevel", PlayerPrefs.GetInt("nextLevel"));
 
-        //loadingPanel.SetActive(true);
-        //try
-        //{
-        //    StartCoroutine(LoadScene());
-        //}
-        //catch { }
     }
 
     private void HandleAnalyticsResult(AnalyticsResult result)
@@ -3123,23 +2695,23 @@ public class GameManager : MonoBehaviour
     public void SniperContinueButton()
     {
         Time.timeScale = 1;
-        // Collect Garbage
-     //   System.GC.Collect();
 
         if (AudioManager.instance)
             AudioManager.instance.NormalClick();
 
         PlayerPrefs.SetInt("MMPopupCount", 0); // For Main Menu Weapon Popup
-                                               //PlayerPrefs.SetInt("currentLevel", PlayerPrefs.GetInt("nextLevel"));
 
         SaveManager.Instance.state.nextButtonPressed = 1;
         SaveManager.Instance.Save();
-        GoogleMobileAdsManager.Instance.HideBanner();
+        AdsManager_AdmobMediation.Instance.HideBanners();
         SceneManager.LoadScene("MainMenu");
     }
 
     private IEnumerator LoadScene()
     {
+        GameManagerStatic.Instance.interstitial = "Interstitial";
+        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+        yield return new WaitForSeconds(4);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
 
         // Wait until the asynchronous scene fully loads
@@ -3155,32 +2727,17 @@ public class GameManager : MonoBehaviour
     {
         if (AudioManager.instance)
             AudioManager.instance.NormalClick();
-        if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-        {
             if (revivePanel.activeSelf)
                 revivePanel.SetActive(false);
 
-            // Ads
-            GoogleMobileAdsManager.Instance.HideMedBanner();
-            GoogleMobileAdsManager.Instance.ShowBanner();
+        // Ads
+        
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
 
-            freeRetryVideoButton.interactable = false;
+        freeRetryVideoButton.interactable = false;
             freeRetryButtonPressed = true;
-            GoogleMobileAdsManager.Instance.ShowRewarded();
-        }
-        else if (UnityAdsManager.Instance.IsRewardedVideoReady())
-        {
-            if (revivePanel.activeSelf)
-                revivePanel.SetActive(false);
-
-            // Ads
-            GoogleMobileAdsManager.Instance.HideMedBanner();
-            GoogleMobileAdsManager.Instance.ShowBanner();
-
-            freeRetryVideoButton.interactable = false;
-            freeRetryButtonPressed = true;
-            UnityAdsManager.Instance.ShowUnityRewardedVideoAd();
-        }
+        FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+        //}
     }
 
     [HideInInspector] public bool freeSecretButtonPressed = false;
@@ -3199,35 +2756,12 @@ public class GameManager : MonoBehaviour
     {
         if (AudioManager.instance)
             AudioManager.instance.NormalClick();
-        if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-        {
 #if UNITY_ANDROID
-            Debug.Log("Debug : Admob_Reward For DoubleReward");
+        Debug.Log("Debug : Admob_Reward For DoubleReward");
 #endif
-            doubleRewardButtonPressed = true;
-            doubleRewardButton.interactable = false;
-            isBannerLoaded = false;
-            GoogleMobileAdsManager.Instance.ShowRewarded();
-            GoogleMobileAdsManager.Instance.HideMedBanner();
-        }
-
-        else if (UnityAdsManager.Instance.IsRewardedVideoReady())
-        {
-#if UNITY_ANDROID
-            Debug.Log("Debug : Unity_Reward For DoubleReward");
-#endif
-            doubleRewardButtonPressed = true;
-            doubleRewardButton.interactable = false;
-            isBannerLoaded = false;
-            UnityAdsManager.Instance.ShowUnityRewardedVideoAd();
-            GoogleMobileAdsManager.Instance.HideMedBanner();
-        }
-        else
-        {
-            UnityAdsManager.Instance.InitializeUnityAds();
-            doubleRewardNotAvailable.SetActive(true);
-            Invoke("DoubleRewardNotAvailable", 1.0f);
-        }
+        doubleRewardButtonPressed = true;
+        doubleRewardButton.interactable = false;
+        FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
     }
 
     void DoubleRewardNotAvailable()
@@ -3287,7 +2821,6 @@ public class GameManager : MonoBehaviour
     public void _ControlSensitivitySlider(float value)
     {
         SaveManager.Instance.state.controlSensitivity = value;
-        //fpsCamera.sensitivity = fpsCameraCS.sensitivity = value;
         SaveManager.Instance.Save();
     }
 
@@ -3344,29 +2877,15 @@ public class GameManager : MonoBehaviour
 
     public void _ClosePopup()
     {
-        // Ads
-        GoogleMobileAdsManager.Instance.ShowMedBanner();
-        //StartCoroutine(LevelFailAd(0f));
-
         AudioManager.instance.BackButtonClick();
         popup.SetActive(false);
     }
 
-    //public void _CloseRemoveAdsPanel()
-    //{
-    //    // Ads
-    //    GoogleMobileAdsManager.Instance.HideBanner();
-    //    GoogleMobileAdsManager.Instance.ShowMedBanner();
-
-    //    AudioManager.instance.BackButtonClick();
-    //    removeAdsPanel.SetActive(false);
-    //}
-
     public void _CloseVideoRewardPanel()
     {
         // Ads
-        GoogleMobileAdsManager.Instance.HideBanner();
-        GoogleMobileAdsManager.Instance.ShowMedBanner();
+
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
 
         AudioManager.instance.BackButtonClick();
         videoRewardPanel.SetActive(false);
@@ -3429,16 +2948,7 @@ public class GameManager : MonoBehaviour
 
     public void ClickPasses()
     {
-        //InAppManager.Instance.SetPassPrices();
-        //passPricesText[0].text = InAppManager.Instance.PremiumPass1;
-        //passPricesText[1].text = InAppManager.Instance.PremiumPass1Discount;
-        //passPricesText[2].text = InAppManager.Instance.PremiumPass2;
-        //passPricesText[3].text = InAppManager.Instance.PremiumPass2Discount;
-        //passPricesText[4].text = InAppManager.Instance.PremiumPass3;
-        //passPricesText[5].text = InAppManager.Instance.PremiumPass3Discount;
-
         passesPanel.SetActive(true);
-        GoogleMobileAdsManager.Instance.HideMedBanner();
     }
 
     public void PassesBack()
@@ -3451,7 +2961,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Ads
-        GoogleMobileAdsManager.Instance.ShowMedBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
     }
 
     public void PurchasePass()
@@ -3472,8 +2982,8 @@ public class GameManager : MonoBehaviour
     public void _PurchaseRemoveAds()
     {
         // Ads
-        GoogleMobileAdsManager.Instance.HideBanner();
-        GoogleMobileAdsManager.Instance.ShowMedBanner();
+        //GoogleMobileAdsManager.Instance.HideBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
 
         AudioManager.instance.StoreButtonClick();
         //removeAdsPanel.SetActive(false);
@@ -3515,7 +3025,7 @@ public class GameManager : MonoBehaviour
 
     public void CrossPiggyBank()
     {
-        GoogleMobileAdsManager.Instance.HideMedBanner();
+       // GoogleMobileAdsManager.Instance.HideMedBanner();
         piggyPackPanel.SetActive(false);
     }
 
@@ -3549,7 +3059,7 @@ public class GameManager : MonoBehaviour
         {
             weaponsCamera.GetComponent<Camera>().enabled = false;
         }
-            GoogleMobileAdsManager.Instance.HideMedBanner();
+        AdsManager_AdmobMediation.Instance.HideBanners();
     }
 
     public void ControlsReturn()
@@ -3565,7 +3075,7 @@ public class GameManager : MonoBehaviour
         {
             weaponsCamera.GetComponent<Camera>().enabled = true;
         }
-            GoogleMobileAdsManager.Instance.ShowMedBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
     }
 
     public void LanugagesPanel()
@@ -3675,68 +3185,11 @@ public class GameManager : MonoBehaviour
 
     private void ShowFlash()
     {
-        //LightsObject.SetActive(true);
-        //Color c = new Color(0.08f, 0.56f, 0.78f, 1);
-        //switch (lightIndex)
-        //{
-        //    case 0:
-
-        //        for (int i = 0; i < GamePlayMats.Length; i++)
-        //        {
-        //            GamePlayMats[i].color = c;
-        //        }
-        //        c = new Color(0.05f, 0.45f, 0.65f, 1);
-        //        for (int i = 0; i < gunsMats.Length; i++)
-        //            gunsMats[i].SetColor("_Color", c);
-        //        c = new Color(0.08f, 0.56f, 0.78f, 1);
-        //        for (int i = 0; i < enemyMats.Length; i++)
-        //            enemyMats[i].SetColor("_Color", c);
-        //        break;
-        //    case 1:
-        //        c = new Color(0.68f, 0.50f, 0.25f, 1);
-        //        for (int i = 0; i < GamePlayMats.Length; i++)
-        //        {
-        //            GamePlayMats[i].color = c;
-        //        }
-        //        c = new Color(0.41f, 0.32f, 0.15f, 1);
-        //        for (int i = 0; i < gunsMats.Length; i++)
-        //            gunsMats[i].SetColor("_Color", c);
-        //        c = new Color(0.68f, 0.50f, 0.25f, 1);
-        //        for (int i = 0; i < enemyMats.Length; i++)
-        //            enemyMats[i].SetColor("_Color", c);
-        //        break;
-        //    case 2:
-        //        c = new Color(0.45f, 0.19f, 0.1f, 1);
-        //        for (int i = 0; i < GamePlayMats.Length; i++)
-        //        {
-        //            GamePlayMats[i].color = c;
-        //        }
-        //        c = new Color(0.37f, 0.14f, 0.1f, 1);
-        //        for (int i = 0; i < gunsMats.Length; i++)
-        //            gunsMats[i].SetColor("_Color", c);
-        //        c = new Color(0.45f, 0.19f, 0.1f, 1);
-        //        for (int i = 0; i < enemyMats.Length; i++)
-        //            enemyMats[i].SetColor("_Color", c);
-        //        break;
-        //    case 3:
-        //        c = new Color(0.78f, 0.78f, 0.78f, 1);
-        //        for (int i = 0; i < GamePlayMats.Length; i++)
-        //        {
-        //            GamePlayMats[i].color = c;
-        //        }
-        //        c = new Color(0.65f, 0.65f, 0.65f, 1);
-        //        for (int i = 0; i < gunsMats.Length; i++)
-        //            gunsMats[i].SetColor("_Color", c);
-        //        c = new Color(0.78f, 0.78f, 0.78f, 1);
-        //        for (int i = 0; i < enemyMats.Length; i++)
-        //            enemyMats[i].SetColor("_Color", c);
-        //        break;
-        //}
+        
     }
 
     private void OnDisable()
     {
-        GoogleMobileAdsManager.handleFullScreenAdClose -= DelayedAddsShowBanner;
         StopCoroutine("LightingControlRoutine");
         StopCoroutine("LightingRoutine");
         StopCoroutine("AfterRewards");
@@ -3761,21 +3214,7 @@ public class GameManager : MonoBehaviour
 
     private void HideFlash()
     {
-        //LightsObject.SetActive(false);
-        //if(isRain)
-        //{
-        //Color c = new Color(GAMEPLAYCOLORLIGHTDARK, GAMEPLAYCOLORLIGHTDARK, GAMEPLAYCOLORLIGHTDARK, 1);
-        //for (int i = 0; i < GamePlayMats.Length; i++)
-        //{
-        //    GamePlayMats[i].color = c;
-        //}
-        //c = new Color(GUNSCOLORLIGHTDARK, GUNSCOLORLIGHTDARK, GUNSCOLORLIGHTDARK, 1);
-        //for (int i = 0; i < gunsMats.Length; i++)
-        //    gunsMats[i].SetColor("_Color", c);
-        //c = new Color(ENEMYCOLORLIGHTDARK, ENEMYCOLORLIGHTDARK, ENEMYCOLORLIGHTDARK, 1);
-        //for (int i = 0; i < enemyMats.Length; i++)
-        //    enemyMats[i].SetColor("_Color", c);
-        //}
+       
     }
 
     public void OpenBulletTutorial()
@@ -3844,10 +3283,7 @@ public class GameManager : MonoBehaviour
 
     public void HideMedBanner()
     {
-        if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded() && !GoogleMobileAdsManager.Instance.IsLowMemory())
-        {
-            GoogleMobileAdsManager.Instance.HideMedBanner();
-        }
+        AdsManager_AdmobMediation.Instance.HideBanners();
     }
 
    
@@ -3882,10 +3318,7 @@ public class GameManager : MonoBehaviour
     [Space(20)]
         public GameObject nextButton;
     public GameObject loadoutButton;
-        //public GameObject tryNewModeButton;
-        //public GameObject tryNewWeaponButton;
         public GameObject restartButton;
-    public Transform restartButton2Position;
         public GameObject homebutton_complete;
 
     [Header("----FailedButtons----")]

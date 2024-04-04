@@ -3,6 +3,5 @@
   <application>
     <uses-library android:required="false" android:name="org.apache.http.legacy" />
     <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-7268048783756083~8138803291" />
-    <meta-data android:name="descendantFocusability" android:value="blocksDescendants" />
   </application>
 </manifest>

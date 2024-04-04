@@ -339,26 +339,14 @@ public class StoreWeapons : MonoBehaviour
     {
         try
         {
-            if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-            {
 #if UNITY_ANDROID
                 Debug.Log("Debug : Admob_Reward For Gun " + WeaponStore.Instance.currentOrderIndex);
 #endif
-                GoogleMobileAdsManager.GunAdHandler = CheckAdCount;
-                GoogleMobileAdsManager.Instance.prefIndex = weapon.PrefsIndex;
-                GoogleMobileAdsManager.Instance.ShowRewarded();
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
-            else if (UnityAdsManager.Instance.IsRewardedVideoReady())
-            {
-#if UNITY_ANDROID
-                Debug.Log("Debug : Unity_Reward For Gun " + WeaponStore.Instance.currentOrderIndex);
-#endif
-                UnityAdsManager.GunAdHandler = CheckAdCount;
-                UnityAdsManager.Instance.prefIndex = weapon.PrefsIndex;
-                UnityAdsManager.Instance.ShowUnityRewardedVideoAd();
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
+                AdsManager_AdmobMediation.GunAdHandler = CheckAdCount;
+                AdsManager_AdmobMediation.Instance.prefIndex = weapon.PrefsIndex;
+            AdsManager_Unity.GunAdHandler = CheckAdCount;
+            AdsManager_Unity.Instance.prefIndex = weapon.PrefsIndex;
+            FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
         }
         catch { }
     }

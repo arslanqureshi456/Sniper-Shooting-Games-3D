@@ -46,7 +46,6 @@ public class ManifestProcessor : IPreprocessBuild
 
     private const string METADATA_OPTIMIZE_AD_LOADING =
             "com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING";
-    private const string DESCENDANT_FOCUSABILITY = "descendantFocusability";
 
     private XNamespace ns = "http://schemas.android.com/apk/res/android";
 
@@ -121,12 +120,7 @@ public class ManifestProcessor : IPreprocessBuild
                            METADATA_OPTIMIZE_AD_LOADING,
                            instance.OptimizeAdLoading);
 
-        SetMetadataElement(elemApplication,
-           metas,
-           DESCENDANT_FOCUSABILITY,
-           "blocksDescendants");
         elemManifest.Save(manifestPath);
-
     }
 
     private XElement CreateMetaElement(string name, object value)

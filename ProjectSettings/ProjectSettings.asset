@@ -242,18 +242,18 @@ PlayerSettings:
   clonedFromGUID: 00000000000000000000000000000000
   templatePackageId: 
   templateDefaultScene: 
-  useCustomMainManifest: 1
+  useCustomMainManifest: 0
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 1
-  useCustomLauncherGradleManifest: 0
-  useCustomBaseGradleTemplate: 1
+  useCustomLauncherGradleManifest: 1
+  useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 1
   useCustomProguardFile: 0
   AndroidTargetArchitectures: 3
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: /Volumes/DataDisk/SolutionHawksGaming/deadshotgaminglab.keystore
+  AndroidKeystoreName: D:/DeadShotGamingLab/deadshotgaminglab.keystore
   AndroidKeyaliasName: deadshotgaminglab
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
@@ -710,8 +710,8 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     1: BAKERY_INCLUDED
-    4: CF_FORCE_MOBILE_MODE
-    7: CF_FORCE_MOBILE_MODE;BAKERY_INCLUDED
+    4: CF_FORCE_MOBILE_MODE;AdsManager_AdmobMediation;Firebase_Analytics;AdsManager_Unity
+    7: CF_FORCE_MOBILE_MODE;BAKERY_INCLUDED;AdsManager_AdmobMediation;Firebase_Analytics;AdsManager_Unity
     14: CF_FORCE_MOBILE_MODE
   additionalCompilerArguments: {}
   platformArchitecture:

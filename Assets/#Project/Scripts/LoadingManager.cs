@@ -9,15 +9,14 @@ public class LoadingManager : MonoBehaviour
     private void OnEnable()
     {
         // Unity Analytics
-        GoogleMobileAdsManager.handleFullScreenAdClose += loadingBanner;
         if (PlayerPrefs.GetInt("AllowSessionAd").Equals(0))
         {
-            GoogleMobileAdsManager.Instance.HideBanner();
-           // loadingBanner();
+            AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+            // loadingBanner();
         }
         else
         {
-            GoogleMobileAdsManager.Instance.HideBanner();
+            AdsManager_AdmobMediation.Instance.HideBanners();
         }
         if (MainMenuManager.Instance.tutorialPanels[0].activeSelf)
         {
@@ -35,11 +34,11 @@ public class LoadingManager : MonoBehaviour
 
     private void loadingBanner()
     {
-        if (GoogleMobileAdsManager.Instance.medBannerView != null)
-        {
-            GoogleMobileAdsManager.Instance.RePosition(GoogleMobileAds.Api.AdPosition.BottomLeft);
-            GoogleMobileAdsManager.Instance.ShowMedBanner();
-        }
+        //if (GoogleMobileAdsManager.Instance.medBannerView != null)
+        //{
+        //    GoogleMobileAdsManager.Instance.RePosition(GoogleMobileAds.Api.AdPosition.BottomLeft);
+        //    GoogleMobileAdsManager.Instance.ShowMedBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
     }
 
     private IEnumerator LoadScene()
@@ -47,17 +46,12 @@ public class LoadingManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         if (Application.internetReachability != NetworkReachability.NotReachable)
         {
-            if (PlayerPrefs.GetInt("AllowSessionAd").Equals(1) && GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded() && !GoogleMobileAdsManager.Instance.IsLowMemory())
-            {
 #if UNITY_EDITOR
                 print("Ad Session Shown");
 #endif
-                    GoogleMobileAdsManager.Instance.ShowInterstitial();
-            }
-            else
-            {
-                loadingBanner();
-            }
+            AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+            GameManagerStatic.Instance.interstitial = "Interstitial";
+                FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
         }
         yield return new WaitForSeconds(2);
 
@@ -72,7 +66,6 @@ public class LoadingManager : MonoBehaviour
 
     void OnDisable()
     {
-        GoogleMobileAdsManager.handleFullScreenAdClose -= loadingBanner;
         StopCoroutine("LoadScene");
     }
 }

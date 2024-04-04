@@ -9,8 +9,6 @@ using UnityEngine.Analytics;
 public class Preloader : MonoBehaviour
 {
     public static bool fromPreloader = false;
-    //public Text identifierText;
-    public GameObject LoadingAdObject;
 
     //Auto Quality inputs
     [Header("-----RAM-----")]
@@ -185,7 +183,7 @@ public class Preloader : MonoBehaviour
             PlayerPrefs.SetInt("Mode1", 1);
             PlayerPrefs.SetInt("weapon19", 1);
             PlayerPrefs.SetInt("SniperEquipped", 19);
-            Invoke("LoadMenuScene", 0.5f);
+            Invoke("LoadMenuScene", 7f);
 
         }
         else
@@ -225,10 +223,10 @@ public class Preloader : MonoBehaviour
 
             if (!PlayerPrefs.HasKey("AllowSessionAd"))
             {
+                
                 PlayerPrefs.SetInt("AllowSessionAd", 0);
 #if UNITY_EDITOR
                 print("Ad Not Session");
-                
 #endif
             }
             else
@@ -244,9 +242,8 @@ public class Preloader : MonoBehaviour
 
             
             SaveManager.Instance.Session = 1;
-           // LoadingAdObject.SetActive(true);
             PlayerPrefs.SetInt("Mode1", 1);
-            Invoke("LoadMenuScene", 5);
+            Invoke("LoadMenuScene", 7);
         }
 
 
@@ -254,11 +251,6 @@ public class Preloader : MonoBehaviour
 
     void LoadMenuScene()
     {
-        if (PlayerPrefs.GetInt("ADSUNLOCK") != 1)
-        {
-            GoogleMobileAdsManager.Instance.RequestBanner();
-            GoogleMobileAdsManager.Instance.RequestMedBanner();
-        }
         SceneManager.LoadScene("MainMenu");
     }
 

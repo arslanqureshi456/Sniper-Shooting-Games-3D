@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
-using UnityEngine.Purchasing;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -44,6 +43,7 @@ public class MainMenuManager : MonoBehaviour
     public Weapon[] OfferWeapons;
     public GameObject
         mainMenuPanel,
+        settingPanel,
         quitPanel,
         storePanel,
         loadingPanel,
@@ -76,7 +76,11 @@ public class MainMenuManager : MonoBehaviour
     //public GameObject[] packsPanel; // Starter, Extraordinary, Premium;
     public Text[] packsPriceText, disPacksPriceText;
 
-  
+
+    // Settings
+    public Toggle autoShoot, bloodEffect;
+    public Slider soundFxSlider, backgroundMusicSlider, controlSenstivitySlider, difficultySlider;
+
 
     bool _isGold = false;
 
@@ -96,10 +100,13 @@ public class MainMenuManager : MonoBehaviour
     public GameObject IAPAllGunsBtn; // button to purchase all guns
     public GameObject sessionAdLoading;
     public Text versionText;
-
+    public GameObject rewardedPanel;
+    public Text rewardedText;
+    public Text goldText;
 
     private void Start()
     {
+        goldText.text = PlayerPrefs.GetInt("gold").ToString();
         GoToMainMenu();
 
 #if UNITY_ANDROID
@@ -116,7 +123,7 @@ public class MainMenuManager : MonoBehaviour
 
 
         // calling session ad loading here
-        if (SaveManager.Instance.Session == 1)
+        if (SaveManager.Instance.Session == 1 && PlayerPrefs.GetInt("Appopen") == 1)
         {
             sessionAdLoading.SetActive(true);
             versionText.text = "V " + Application.version;
@@ -152,8 +159,8 @@ public class MainMenuManager : MonoBehaviour
 
 
         //ADS
-        GoogleMobileAdsManager.Instance.HideMedBanner();
-        //Invoke("DelayedAdd", 1.5f);
+        AdsManager_AdmobMediation.Instance.HideBanners();
+        Invoke("DelayedAdd", 1.5f);
        
 
         LastLevelToggle = lastSniperCard = null;
@@ -360,9 +367,14 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         //}
 
         // Audio
+        // Audio
         AudioManager.instance.ChangeBackgroundVolume(SaveManager.Instance.state.backgroundVolume);
         AudioManager.instance.ChangeSoundFxVolume(SaveManager.Instance.state.soundFxVolume);
-        
+        soundFxSlider.value = SaveManager.Instance.state.soundFxVolume;
+        backgroundMusicSlider.value = SaveManager.Instance.state.backgroundVolume;
+        controlSenstivitySlider.value = SaveManager.Instance.state.controlSensitivity;
+        //difficultySlider.value = PlayerPrefs.GetFloat("Difficulty");
+
         AudioManager.instance.backgroundMusicSouce.Play();
 
         
@@ -444,55 +456,41 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
             RemoveAdButton.SetActive(false);
         }
 
+        if(PlayerPrefs.GetInt("Appopen") == 0)
+        {
+            PlayerPrefs.SetInt("Appopen", 1);
+            AdsManager_AdmobMediation.Instance.ShowAppOpenAd();
+            if (sessionAdLoading.activeInHierarchy)
+            {
+                sessionAdLoading.SetActive(false);
+            }
+        }
         // calling session ad here
-        if (SaveManager.Instance.Session == 1)
+        if (SaveManager.Instance.Session == 1 && PlayerPrefs.GetInt("Appopen") == 1)
         {
             Invoke("ShowSessionAd", 3);
         }
-        else {
 
-            GoogleMobileAdsManager.handleFullScreenAdClose?.Invoke();
-        }
-
-        //if (GameManagerStatic.Instance.NextLevelClicked)
-        //{
-        //    _PlayButton();
-        //    GameManagerStatic.Instance.NextLevelClicked = false;
-        //}
 
 #if UNITY_EDITOR
         print("Sniper Mode : " + PlayerPrefs.GetInt("Mode1"));
         print("GameManagerStatic.Instance.GunsStoreFrom : " + GameManagerStatic.Instance.GunsStoreFrom);
 #endif
 
-        // initialize Unity Ads , If Not Initilized
-        if (GameManagerStatic.Instance.isGamePlaySceneEnabled == 1 && GameManagerStatic.Instance.isUnityAdsInitialized == 0)
-        {
-            UnityAdsManager.Instance.InitializeUnityAds();
-            GameManagerStatic.Instance.isUnityAdsInitialized = 1;
-        }
     }
 
     private void GoToMainMenu() {
-        GoogleMobileAdsManager.handleFullScreenAdClose += DelayedAdd;
-
         EnablePanel(mainMenuPanel);
     }
 
 
-    void LoadAdmobInterstitial()
-    {
-        if (PlayerPrefs.GetInt("AllowSessionAd").Equals(1))
-        {
-            GoogleMobileAdsManager.Instance.RequestInterstitial();
-        }
-    }
 
     void ShowSessionAd()
     {
-        if ((GoogleMobileAdsManager.Instance != null && GoogleMobileAdsManager.Instance.IsAdmobSessionLoaded()) && GameManagerStatic.Instance.isSessionShown == 0)
+        if (GameManagerStatic.Instance.isSessionShown == 0)
         {
-            GoogleMobileAdsManager.Instance.ShowSessionInterstitial();
+            GameManagerStatic.Instance.interstitial = "StaticInterstitial";
+            FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
             GameManagerStatic.Instance.isSessionShown = 1;
             SaveManager.Instance.Session = 0;
             if (sessionAdLoading.activeInHierarchy)
@@ -502,7 +500,6 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         }
         else
         {
-            GoogleMobileAdsManager.Instance.RequestSessionInterstitial();
             sessionAdLoading.SetActive(false);
         }
     }
@@ -518,14 +515,15 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
     }
     public void DelayedAdd()
     {
-        GoogleMobileAdsManager.Instance.ShowBanner();
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
     }
     private void EnablePanel(GameObject panelToShow)
     {
         mainMenuPanel.SetActive(false);
         quitPanel.SetActive(false);
         //levelSelectionPanel.SetActive(false);
-         // storePanel.SetActive(false);
+        // storePanel.SetActive(false);
+        settingPanel.SetActive(false);
         loadingPanel.SetActive(false);
         modeSelectionPanel.SetActive(false);
         modeselection.SetActive(false);
@@ -592,11 +590,6 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         WeaponStore.Instance.CheckUnlockedGuns();
         //specificationDelegates[19]();
 
-        // Initialize Admob Rewarded , If Not Initialized
-        if (!GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-        {
-            GoogleMobileAdsManager.Instance.RequestRewarded();
-        }
     }
 
     public void _FeaturedWeaponsButton(int index)
@@ -617,33 +610,17 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
 
     public void _PlayButton()
     {
-        //Debug.Log("MainMenuPlay 1");
-        AudioManager.instance.PlayButtonClick();
-//        if (tutorialPanels[0].activeSelf)
-//        {
-//            Analytics.CustomEvent("Play_Tut", new Dictionary<string, object>//MainMenuPlay
-//        {
-//            { "level_index", 1 }
-//        });
-//#if UNITY_EDITOR
-//            Debug.Log("CustomEvent: " + "Play_Tut");
-//#endif 
-//        }
         
         EnablePanel(modeselection);
 
-        // Loading Admob Interstitial
-        if (!GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-        {
-            Invoke("LoadAdmobInterstitial", 0.5f);
-        }
 
         #region Show Session Ad If Not Shown Yet
         if (SaveManager.Instance.Session == 1)
         {
-            if ((GoogleMobileAdsManager.Instance != null && GoogleMobileAdsManager.Instance.IsAdmobSessionLoaded()) && GameManagerStatic.Instance.isSessionShown == 0)
+            if (GameManagerStatic.Instance.isSessionShown == 0)
             {
-                GoogleMobileAdsManager.Instance.ShowSessionInterstitial();
+                GameManagerStatic.Instance.interstitial = "StaticInterstitial";
+                FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
                 GameManagerStatic.Instance.isSessionShown = 1;
                 SaveManager.Instance.Session = 0;
             }
@@ -666,7 +643,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         Debug.Log("Debug : Go To MoreGamesButton");
 #endif
         AudioManager.instance.NormalClick2();
-         Application.OpenURL("https://play.google.com/store/apps/dev?id=7036477655681473153");
+         Application.OpenURL("https://play.google.com/store/apps/developer?id=DeadShot+Gaming+Lab&hl=en&gl=US");
     }
 
     public void _PrivacyPolicyButton()
@@ -675,267 +652,8 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         Debug.Log("Debug : Go To PrivacyPolicyButton");
 #endif
         AudioManager.instance.NormalClick2();
-        Application.OpenURL("http://snipershootinggames3d.trilogixs.com/");
+        Application.OpenURL("https://trilogixs.com/privacypolicy.html");
     }
-
-//    public void _WebsiteButton()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To WebsiteButton");
-//#endif
-//        AudioManager.instance.NormalClick2();
-//        Application.OpenURL("https://gamexis.com/");
-//    }
-
-//    public void _FBButton()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To FaceBookButton");
-//#endif
-//        AudioManager.instance.NormalClick2();
-//        Application.OpenURL("https://www.facebook.com/gamexisofficial/");
-//    }
-
-//    public void _TwitterButton()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To TwitterButton");
-//#endif
-//        AudioManager.instance.NormalClick2();
-//        Application.OpenURL("https://twitter.com/gamexisofficial");
-//    }
-
-//    public void _YoutubeButton()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To YoutubeButton");
-//#endif
-//        AudioManager.instance.NormalClick2();
-//        Application.OpenURL("https://www.youtube.com/channel/UCsGGnLVuwtRaKzNP3qqJc4Q");
-//    }
-
-//    public void _InstagramButton()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To InstagramButton");
-//#endif
-//        AudioManager.instance.NormalClick2();
-//        Application.OpenURL("https://www.instagram.com/gamexisofficial/");
-//    }
-
-//    public void _SettingButton()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Menu Settings Button");
-//#endif
-//        AudioManager.instance.NormalClick();
-//        EnablePanel(settingPanel);
-//        GoogleMobileAdsManager.Instance.RePosition(GoogleMobileAds.Api.AdPosition.BottomLeft);
-//        GoogleMobileAdsManager.Instance.ShowMedBanner();
-//        GoogleMobileAdsManager.Instance.HideBanner();
-//    }
-
-//    public void _CloseSettingButton()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Close Menu Settings");
-//#endif
-//        AudioManager.instance.BackClickNew();
-
-//        if (!tutorialPanels[0].activeSelf &&
-//            SaveManager.Instance.state.nameEntryPanelSeen.Equals(0))
-//        {
-//           // tutorialNameEntryPanel.SetActive(true);
-//        }
-//        GoogleMobileAdsManager.Instance.RePosition(GoogleMobileAds.Api.AdPosition.Bottom);
-//        GoogleMobileAdsManager.Instance.HideMedBanner();
-//        GoogleMobileAdsManager.Instance.ShowBanner();
-//        EnablePanel(mainMenuPanel);
-//    }
-
-//    public void _SoundFxSlider(float value)
-//    {
-//        AudioManager.instance.ChangeSoundFxVolume(value);
-//        SaveManager.Instance.state.soundFxVolume = value;
-//        SaveManager.Instance.Save();
-//    }
-//    public void _DifficultySlider(float value)
-//    {
-//        PlayerPrefs.SetFloat("Difficulty", difficultySlider.value);
-//    }
-//    public void _BackgroundMusicSlider(float value)
-//    {
-//        AudioManager.instance.ChangeBackgroundVolume(value);
-//        SaveManager.Instance.state.backgroundVolume = value;
-//        SaveManager.Instance.Save();
-//    }
-
-//    public void _ControlSensitivitySlider(float value)
-//    {
-//        SaveManager.Instance.state.controlSensitivity = value;
-//        SaveManager.Instance.Save();
-//    }
-
-//    public void _AutoShoot(bool value)
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Menu AutoShootToggle");
-//#endif
-//        if (AudioManager.instance != null)
-//            AudioManager.instance.NormalClick();
-
-//        if (value)
-//        {
-//            SaveManager.Instance.state.autoShoot = 1;
-//        }
-//        else
-//        {
-//            SaveManager.Instance.state.autoShoot = 0;
-//        }
-//        SaveManager.Instance.Save();
-//    }
-//    public void _BloodEffectToggle(bool value)
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Menu BloodEffectToggle");
-//#endif
-//        if (AudioManager.instance != null)
-//            AudioManager.instance.NormalClick();
-
-//        if (value)
-//        {
-//            PlayerPrefs.SetInt("BloodEffect", 1);
-//        }
-//        else
-//        {
-//            PlayerPrefs.SetInt("BloodEffect", 0);
-//        }
-//    }
-
-//    public static int storeCount = 0;
-//    public void _StoreButton()
-//    {
-//        //GoogleMobileAdsManager.handleFullScreenAdClose -= DelayedAdd;
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Menu Store Button");
-//#endif
-//        storeCount++;
-//        AudioManager.instance.NormalClick2();
-//        storePanel.SetActive(true);
-//        storePanel.GetComponent<NewStoreManager>()._SPButton();
-//        WeaponStore.Instance.StorePanel.SetActive(true);
-
-//        // Initialize Admob Rewarded , If Not Initialized
-//        if (!GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-//        {
-//            GoogleMobileAdsManager.Instance.RequestRewarded();
-//        }
-//    }
-    //public void _PassesButton()
-    //{
-    //    storeCount++;
-    //    AudioManager.instance.NormalClick2();
-    //    storePanel.SetActive(true);
-    //    storePanel.GetComponent<NewStoreManager>()._PassesButton();
-    //}
-//    public void _FreeRewardsButton()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Free Reward Button");
-//#endif
-//        storeCount++;
-//        AudioManager.instance.NormalClick2();
-//        storePanel.SetActive(true);
-//        storePanel.GetComponent<NewStoreManager>()._FreeRewardsButton();
-//        WeaponStore.Instance.StorePanel.SetActive(true);
-
-//        // Initialize Admob Rewarded , If Not Initialized
-//        if (!GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-//        {
-//            GoogleMobileAdsManager.Instance.RequestRewarded();
-//        }
-//    }
-//    public void _OpenGoldOrSPButton()
-//    {
-//#if UNITY_ANDROID
-//        if (modeSelectionPanel.activeInHierarchy)
-//        {
-//            Debug.Log("Debug : Mode Unlock Panel To Store");
-//        }
-//        else if (storePanel.activeInHierarchy)
-//        {
-//            Debug.Log("Debug : Loadout Panel To Store");
-//        }
-//#endif
-//        if (gunsCamera.activeInHierarchy)
-//        {
-//            Camera.main.depth = 2;
-//        }
-//        goldSpPanel.SetActive(false);
-//        //GetComponent<GadgetStore>()._CloseButton();
-//        storePanel.SetActive(true);
-//        WeaponStore.Instance.StorePanel.SetActive(true);
-//        if (WeaponStore.Instance != null && WeaponStore.Instance.fullSpecificationPanel.activeInHierarchy)
-//        {
-//            WeaponStore.Instance.fullSpecificationPanel.SetActive(false);
-//            WeaponStore.Instance.StorePanel.SetActive(true);
-//                GameManagerStatic.Instance.FromGunsToStore = 1;
-//        }
-//        if (loadoutPanel.activeSelf)
-//        {
-//            loadoutPanel.SetActive(false);
-//            isLoadout = true;
-//        }
-//        else
-//        {
-//            isRedirect = true;
-//        }
-        
-//        if (_isGold)
-//        {
-//            if (isGoldRewardedADPopup)
-//            {
-//                isGoldRewardedADPopup = false;
-//                goldRewardedAdPopup.SetActive(true);
-//            }
-//            WeaponStore.Instance.GetComponent<NewStoreManager>()._GoldButton();
-//        }
-//        else
-//        {
-//            if (isSPRewardedADPopup)
-//            {
-//                isSPRewardedADPopup = false;
-//                spRewardedAdPopup.SetActive(true);
-//            }
-//            WeaponStore.Instance.GetComponent<NewStoreManager>()._SPButton();
-//        }
-//        gunsCamera.SetActive(true);
-//        Camera.main.depth = 2;
-//        if ((!modeSelectionPanel.activeInHierarchy) && (WeaponStore.Instance.fullSpecificationPanel.activeInHierarchy))
-//        {
-//            GameManagerStatic.Instance.FromGunsToStore = 1;
-//        }
-
-//        PlayerLevelScore.instance.UpdateScore();
-
-
-//        // Initialize Admob Rewarded , If Not Initialized
-//        if (!GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-//        {
-//            GoogleMobileAdsManager.Instance.RequestRewarded();
-//        }
-//    }
-
-    //public void _OpenGoldRewardedAdPopup()
-    //{
-    //    goldRewardedAdPopup.SetActive(true);
-    //}
-
-    //public void _OpenSPRewardedAdPopup()
-    //{
-    //    spRewardedAdPopup.SetActive(true);
-    //}
-
 
 
     public void _CloseNotEnoughCurrencyButton()
@@ -1021,41 +739,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         premissionPanel.SetActive(false);
         Camera.main.depth = 2;
     }
-    //    public void _ModeSelectionCampaignButton()
-    //    {
-    //        //AudioManager.instance.NormalClick();
-    //        if (tutorialPanels[0].activeSelf)
-    //        {
-    //            Analytics.CustomEvent("Campaign_Tut", new Dictionary<string, object>//MainMenuPlay
-    //        {
-    //            { "level_index" , 1 }
-    //        });
-    //#if UNITY_EDITOR
-    //            Debug.Log("CustomEvent: " + "Campaign_Tut");
-    //#endif
-    //        }
-
-    //        currentMode = 0;
-    //        EnablePanel(modeSelectionPanel);
-    //        PlayerPrefs.SetInt("currentMode", 0);
-    //    }
-    //    public void _ModeSelectionCampaignBack()
-    //    {
-    //        AudioManager.instance.BackClickNew();
-    //        EnablePanel(modeselection);
-    //        #region oldwork
-    //        //// New Back Button , scenario is to take mode buttons to main menu
-    //        //_ModeSelectionBack();
-    //        #endregion
-    //    }
-
-    //    public void _ModeSelectionMultiButton()
-    //    {
-    //        //AudioManager.instance.NormalClick();
-    //        currentMode = 1;
-    //        EnablePanel(modeSelectionPanel);
-    //        PlayerPrefs.SetInt("currentMode", 1);
-    //    }
+   
     public void _ModeSelectionBack()
     {
 #if UNITY_ANDROID
@@ -1123,13 +807,6 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
             GameManagerStatic.Instance.GunsStoreFrom = 1;
             WeaponStore.Instance.CheckUnlockedGuns();
 
-            // Load Admob , If Not Loaded
-            #region Loading Admob Interstitial If Not Loaded
-            if (GoogleMobileAdsManager.Instance != null && !GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-            {
-                LoadAdmobInterstitial();
-            }
-            #endregion
 
 
         if (tutorialPanels[2].activeSelf)
@@ -1139,11 +816,6 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
             { "level_index" , 1 }
         });
         }
-        // Initialize Admob Rewarded , If Not Initialized
-        if (!GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-        {
-            GoogleMobileAdsManager.Instance.RequestRewarded();
-        }
     }
     public void _LoadOutPanelBack()
     {
@@ -1152,16 +824,13 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         AudioManager.instance.BackClickNew();
         loadoutPanel.SetActive(false);
         modeSelectionPanel.SetActive(true);
-        //if (currentMode == 0)
-        //    modeSelectionPanelCampaign.SetActive(true);
-        //else
-        //    modeSelectionPanelMulti.SetActive(true);
+        
     }
     public void _CloseStoreButton()
     {
         if (mainMenuPanel.activeInHierarchy)
         {
-            //GoogleMobileAdsManager.handleFullScreenAdClose += DelayedAdd;
+            
 #if UNITY_ANDROID
             Debug.Log("Debug : StorePanel To Menu");
 #endif
@@ -1207,6 +876,9 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
 #endif
         AudioManager.instance.NormalClick();
         EnablePanel(quitPanel);
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        GameManagerStatic.Instance.interstitial = "Interstitial";
+        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
     }
 
     public void _CloseQuitButton()
@@ -1221,7 +893,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         {
            // tutorialNameEntryPanel.SetActive(true);
         }
-
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
         EnablePanel(mainMenuPanel);
     }
 
@@ -1230,271 +902,23 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
 #if UNITY_ANDROID
         Debug.Log("Debug : Quit Game Completely");
 #endif
-        GoogleMobileAdsManager.Instance.HideBanner();
+        AdsManager_AdmobMediation.Instance.HideBanners();
         Application.Quit();
     }
 
     public void _ClosePackPanel()
     {
         AudioManager.instance.BackClickNew();
-        if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
-        {
+        //if (GoogleMobileAdsManager.Instance.IsAdmobInterstitialLoaded())
+        //{
             if (PlayerPrefs.GetInt("ADSUNLOCK") != 1)
             {
               //  GoogleMobileAdsManager.Instance.ShowInterstitial();
             }
-        }
+        //}
     }
 
-//    public void _AboutUsButton()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Open AboutUsPanel");
-//#endif
-//        AudioManager.instance.NormalClick();
-//        EnablePanel(aboutUsPanel);
-//        GoogleMobileAdsManager.Instance.RePosition(GoogleMobileAds.Api.AdPosition.BottomLeft);
-//       // GoogleMobileAdsManager.Instance.ShowMedBanner();
-//        GoogleMobileAdsManager.Instance.HideBanner();
-//    }
 
-//    public void _CloseAboutUsPanel()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Close AboutUsPanel");
-//#endif
-//        AudioManager.instance.BackClickNew();
-
-//        if (!tutorialPanels[0].activeSelf &&
-//            SaveManager.Instance.state.nameEntryPanelSeen.Equals(0))
-//        {
-//           // tutorialNameEntryPanel.SetActive(true);
-//        }
-//       // GoogleMobileAdsManager.Instance.RePosition(GoogleMobileAds.Api.AdPosition.Bottom);
-//        //GoogleMobileAdsManager.Instance.HideMedBanner();
-//       // GoogleMobileAdsManager.Instance.ShowBanner();
-//        EnablePanel(settingPanel);
-//    }
-
-    //IAP
-//    public void PurchaseGoldBundle01()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseGoldBundle01();
-//    }
-
-//    public void PurchaseGoldBundle02()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseGoldBundle02();
-//    }
-
-//    public void PurchaseGoldBundle03()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseGoldBundle03();
-//    }
-
-//    public void PurchaseGoldBundle04()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseGoldBundle04();
-//    }
-
-//    public void PurchaseGoldBundle05()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseGoldBundle05();
-//    }
-
-//    public void PurchaseGoldBundle06()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseGoldBundle06();
-//    }
-
-//    public void PurchaseSPBundle01()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseSPBundle01();
-//    }
-
-//    public void PurchaseSPBundle02()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseSPBundle02();
-//    }
-//    public void PurchaePremiumPass()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchasePremiumPass1();
-//    }
-//    public void PurchaePremiumPass2()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchasePremiumPass2();
-//    }
-//    public void PurchaePremiumPass3()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchasePremiumPass3();
-//    }
-//    public void PurchaseSPBundle03()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseSPBundle03();
-//    }
-
-//    public void PurchaseSPBundle04()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseSPBundle04();
-//    }
-
-//    public void PurchaseSPBundle05()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseSPBundle05();
-//    }
-
-//    public void PurchaseSPBundle06()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseSPBundle06();
-//    }
-//    public void ResetPiggy()
-//    {
-//        gunsCamera.SetActive(true);
-//        bankedSPText.text = System.String.Empty + PlayerPrefs.GetInt("BankedSP");
-//        bankedGoldText.text = System.String.Empty + PlayerPrefs.GetInt("BankedGold");
-
-//        //_InAppManager.SetPiggyPackPrice();
-//        //piggyBankPriceText.text = System.String.Empty + _InAppManager.piggyBankPrice;
-//        //disPiggyBankPriceText.text = System.String.Empty + _InAppManager.disPiggyBankPrice;
-//        //if (disPiggyBankPriceText.text == "")
-//        //    disPiggyBankPriceText.text = "Purchase";
-//    }
-   
-
-
-//    public void PurchaseProStarterBundle()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseProStarterBundle();
-//    }
-//    public void PurchaseEssentialBundle()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseEssentialBundle();
-//    }
-//    public void PurchaseExreaordinaryBundle()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseExtraordinaryBundle();
-//    }
-
-//    public void PurchasePremiumBundle()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchasePremiumBundle();
-//    }
-
-//    public void PurchaseAdrenaline_H25_1()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseAdrenaline_H25_1();
-//    }
-
-//    public void PurchaseAdrenaline_H25_2()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseAdrenaline_H25_2();
-//    }
-
-//    public void PurchaseGrenade_G65_1()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseGrenade_G65_1();
-//    }
-
-//    public void PurchaseGrenade_G65_2()
-//    {
-//        AudioManager.instance.StoreButtonClick();
-//        //_InAppManager.PurchaseGrenade_G65_2();
-//    }
-//    public void PurchaseLevelButton()
-//    {
-//        AudioManager.instance.NormalClick();
-//        PurchaseLevelPanel.SetActive(true);
-//    }
-//    public void PurchaseLevelButtonBack()
-//    {
-//        AudioManager.instance.BackClickNew();
-//        PurchaseLevelPanel.SetActive(false);
-//    }
-//    public void PurchaseLevelGoldButton()
-//    {
-//        PurchaseLevelPanel.SetActive(false);
-//        storePanel.SetActive(true);
-//        storePanel.GetComponent<NewStoreManager>()._GoldButton();
-//    }
-//    public void PurchaseLevelSPButton()
-//    {
-//        PurchaseLevelPanel.SetActive(false);
-//        storePanel.SetActive(true);
-//        storePanel.GetComponent<NewStoreManager>()._SPButton();
-//    }
-//    public void OpenCredits()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To OpenCredits");
-//#endif
-//        AudioManager.instance.NormalClick();
-//        creditsPanel.SetActive(true);
-//        GoogleMobileAdsManager.Instance.HideMedBanner();
-//    }
-//    public void CloseCredits()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To CloseCredits");
-//#endif
-//        AudioManager.instance.BackClickNew();
-//        creditsPanel.SetActive(false);
-//        GoogleMobileAdsManager.Instance.ShowMedBanner();
-//    }
-//    public void OpenLanuguagePanel()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To LanguagePanel");
-//#endif
-//        AudioManager.instance.NormalClick();
-//        languagePanel.SetActive(true);
-//    }
-//    public void CLoseLanugagePanel()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To CloseLanguagePanel");
-//#endif
-//        AudioManager.instance.BackClickNew();
-//        languagePanel.SetActive(false);
-//    }
-//    public void OpenDailyRewards()
-//    {
-//#if UNITY_ANDROID
-//        Debug.Log("Debug : Go To OpenDailyReward");
-//#endif
-//        dailyRewardsPanel.SetActive(true);
-//    }
-//    public void ShowWelcome()
-//    {
-//        if (!PlayerPrefs.GetInt("WelcomeReward").Equals(1) && !PlayerPrefs.GetInt("Start_CutScene").Equals(0)) 
-//        {
-//#if UNITY_EDITOR
-//            print("WelcomeReward appers at this place");
-//#endif
-//            // welcomeReward.SetActive(true);
-//        }
-//    }
     public void ShowInAppProcess()
     {
         inAppProcessPanel.SetActive(true);
@@ -1506,7 +930,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         {
             gunsCamera.SetActive(true);
             inAppProcessPanel.SetActive(false);
-           // GoogleMobileAdsManager.Instance.HideBanner();
+            AdsManager_AdmobMediation.Instance.HideBanners();
         }
         else
         {
@@ -1529,7 +953,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
     public void StartLoading()
     {
         loadingPanel.SetActive(true);
-        GoogleMobileAdsManager.Instance.HideBanner();
+        AdsManager_AdmobMediation.Instance.HideBanners();
     }
     public void OpenMainMenu()
     {
@@ -1542,13 +966,102 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         }
     }
 
+    public void _SettingButton()
+    {
+#if UNITY_ANDROID
+        Debug.Log("Debug : Menu Settings Button");
+#endif
+        AudioManager.instance.NormalClick();
+        EnablePanel(settingPanel);
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+    }
+
+    public void _CloseSettingButton()
+    {
+        AudioManager.instance.BackClickNew();
+
+        //if (!tutorialPanels[0].activeSelf &&
+        //    SaveManager.Instance.state.nameEntryPanelSeen.Equals(0))
+        //{
+        //    // tutorialNameEntryPanel.SetActive(true);
+        //}
+        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+        EnablePanel(mainMenuPanel);
+    }
+
+    public void _SoundFxSlider(float value)
+    {
+        AudioManager.instance.ChangeSoundFxVolume(value);
+        SaveManager.Instance.state.soundFxVolume = value;
+        SaveManager.Instance.Save();
+    }
+    public void _DifficultySlider(float value)
+    {
+        PlayerPrefs.SetFloat("Difficulty", difficultySlider.value);
+    }
+    public void _BackgroundMusicSlider(float value)
+    {
+        AudioManager.instance.ChangeBackgroundVolume(value);
+        SaveManager.Instance.state.backgroundVolume = value;
+        SaveManager.Instance.Save();
+    }
+
+    public void _ControlSensitivitySlider(float value)
+    {
+        SaveManager.Instance.state.controlSensitivity = value;
+        SaveManager.Instance.Save();
+    }
+
+    public void _AutoShoot(bool value)
+    {
+#if UNITY_ANDROID
+        Debug.Log("Debug : Menu AutoShootToggle");
+#endif
+        if (AudioManager.instance != null)
+            AudioManager.instance.NormalClick();
+
+        if (value)
+        {
+            SaveManager.Instance.state.autoShoot = 1;
+        }
+        else
+        {
+            SaveManager.Instance.state.autoShoot = 0;
+        }
+        SaveManager.Instance.Save();
+    }
+    public void _BloodEffectToggle(bool value)
+    {
+#if UNITY_ANDROID
+        Debug.Log("Debug : Menu BloodEffectToggle");
+#endif
+        if (AudioManager.instance != null)
+            AudioManager.instance.NormalClick();
+
+        if (value)
+        {
+            PlayerPrefs.SetInt("BloodEffect", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("BloodEffect", 0);
+        }
+    }
+
+    public void FreeCoinsVideo()
+    {
+        AdsManager_AdmobMediation.Instance.rewardedAdName = "freecoins";
+        AdsManager_Unity.Instance.rewardedAdName = "freecoins";
+        FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+    }
+
+
     #endregion
 
 
-   
+
     private void OnDisable()
     {
-        GoogleMobileAdsManager.handleFullScreenAdClose -= DelayedAdd;
         CancelInvoke("DelayedAdd");
         CancelInvoke("EnablingGunsCamera");
         CancelInvoke("DelayedHideInAppProcess");

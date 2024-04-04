@@ -786,11 +786,6 @@ public class LevelSelectionNew : MonoBehaviour
         }
         catch { }
 
-        // Initialize Admob Rewarded , If Not Initialized
-        if (!GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-        {
-            GoogleMobileAdsManager.Instance.RequestRewarded();
-        }
     }
     public void _PlayButton()
     {
@@ -804,6 +799,8 @@ public class LevelSelectionNew : MonoBehaviour
 
     public void _BackToModeSelection()
     {
+        GameManagerStatic.Instance.interstitial = "Interstitial";
+        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
 #if UNITY_ANDROID
         Debug.Log("Debug : " + modeSelection + " LevelSelection To ModeSelection");
 #endif

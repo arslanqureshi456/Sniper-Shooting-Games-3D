@@ -50,8 +50,6 @@ public class RewardedAds : MonoBehaviour
 	{
 		try
 		{
-			if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-            {
 #if UNITY_ANDROID
                 Debug.Log("Debug : Admob_Reward For FreeExplosive_G65Button");
 #endif
@@ -59,25 +57,7 @@ public class RewardedAds : MonoBehaviour
 				freeAdrenaline_25 = false;
 				freeGold_12 = false;
 				freeSP_8 = false;
-				GoogleMobileAdsManager.Instance.ShowRewarded();
-				GoogleMobileAdsManager.Instance.HideBanner();
-            }
-            else if (UnityAdsManager.Instance.IsRewardedVideoReady())
-            {
-#if UNITY_ANDROID
-                Debug.Log("Debug : Unity_Reward For FreeExplosive_G65Button");
-#endif
-                freeExplosive_G65 = true;
-				freeAdrenaline_25 = false;
-				freeGold_12 = false;
-				freeSP_8 = false;
-				UnityAdsManager.Instance.ShowUnityRewardedVideoAd();
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
-			else
-			{
-				GoogleMobileAdsManager.handleFullScreenAdClose?.Invoke();
-			}
+			FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
         }
         catch { }
 	}
@@ -85,8 +65,6 @@ public class RewardedAds : MonoBehaviour
 	{
 		try
 		{
-			if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-            {
 #if UNITY_ANDROID
                 Debug.Log("Debug : Admob_Reward For FreeAdrenaline_25Button");
 #endif
@@ -94,26 +72,8 @@ public class RewardedAds : MonoBehaviour
 				freeAdrenaline_25 = true;
 				freeGold_12 = false;
 				freeSP_8 = false;
-				GoogleMobileAdsManager.Instance.ShowRewarded();
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
-            else if (UnityAdsManager.Instance.IsRewardedVideoReady())
-            {
-#if UNITY_ANDROID
-                Debug.Log("Debug : Unity_Reward For FreeAdrenaline_25Button");
-#endif
-                freeExplosive_G65 = false;
-				freeAdrenaline_25 = true;
-				freeGold_12 = false;
-				freeSP_8 = false;
-				UnityAdsManager.Instance.ShowUnityRewardedVideoAd();
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
-            else
-            {
-                GoogleMobileAdsManager.handleFullScreenAdClose?.Invoke();
-            }
-        }
+			FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+		}
         catch { }
     }
 
@@ -121,28 +81,17 @@ public class RewardedAds : MonoBehaviour
 	{
 		try
 		{
-			if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-            {
 #if UNITY_ANDROID
                 Debug.Log("Debug : Admob_Reward For FreeGold_12Button");
 #endif
-                GoogleMobileAdsManager.Instance.ShowRewardedByName("freeGold_12");
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
-            else
-			if (UnityAdsManager.Instance.IsRewardedVideoReady())
-            {
-#if UNITY_ANDROID
-                Debug.Log("Debug : Unity_Reward For FreeGold_12Button");
-#endif
-                UnityAdsManager.Instance.ShowRewardedByName("freeGold_12");
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
-            else
-            {
-                GoogleMobileAdsManager.handleFullScreenAdClose?.Invoke();
-                GoogleMobileAdsManager.Instance.RequestRewarded();
-            }
+               // GoogleMobileAdsManager.Instance.ShowRewardedByName("freeGold_12");
+               // GoogleMobileAdsManager.Instance.HideBanner();
+            //}
+            //else
+            //{
+            //    GoogleMobileAdsManager.handleFullScreenAdClose?.Invoke();
+            //   // GoogleMobileAdsManager.Instance.RequestRewarded();
+            //}
         }
         catch { }
 	}
@@ -151,28 +100,19 @@ public class RewardedAds : MonoBehaviour
 	{
 		try
 		{
-			if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-            {
+			//if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
+   //         {
 #if UNITY_ANDROID
                 Debug.Log("Debug : Admob_Reward For FreeSP_8Button");
 #endif
-                GoogleMobileAdsManager.Instance.ShowRewardedByName("freeSP_8");
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
-            else
-			if (UnityAdsManager.Instance.IsRewardedVideoReady())
-            {
-#if UNITY_ANDROID
-                Debug.Log("Debug : Unity_Reward For FreeSP_8Button");
-#endif
-                UnityAdsManager.Instance.ShowRewardedByName("freeSP_8");
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
-            else
-			{
-                GoogleMobileAdsManager.handleFullScreenAdClose?.Invoke();
-                GoogleMobileAdsManager.Instance.RequestRewarded();
-			}
+               // GoogleMobileAdsManager.Instance.ShowRewardedByName("freeSP_8");
+               // GoogleMobileAdsManager.Instance.HideBanner();
+   //         }
+   //         else
+			//{
+   //             GoogleMobileAdsManager.handleFullScreenAdClose?.Invoke();
+   //           //  GoogleMobileAdsManager.Instance.RequestRewarded();
+			//}
 		}
         catch { }
 	}

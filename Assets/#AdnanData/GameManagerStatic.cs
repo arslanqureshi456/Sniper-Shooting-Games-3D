@@ -32,4 +32,5 @@ public class GameManagerStatic
     public int AllModesUnlocked; // check if all modes are unlocked
     public int lastlevel; // last level , so on next level button, we have to go to main menu scene
     //public bool NextLevelClicked;
+    public string interstitial;
 }

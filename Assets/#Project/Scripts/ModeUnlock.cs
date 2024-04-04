@@ -82,20 +82,11 @@ public class ModeUnlock : MonoBehaviour
     {
         try
         {
-            if (GoogleMobileAdsManager.Instance.isAdmobRewardLoaded())
-            {
-                GoogleMobileAdsManager.ModeAdHandler = CheckAdCount;
-                GoogleMobileAdsManager.Instance.modeIndex = index;
-                GoogleMobileAdsManager.Instance.ShowRewarded();
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
-            else if (UnityAdsManager.Instance.IsRewardedVideoReady())
-            {
-                UnityAdsManager.ModeAdHandler = CheckAdCount;
-                UnityAdsManager.Instance.modeIndex = index;
-                UnityAdsManager.Instance.ShowUnityRewardedVideoAd();
-                GoogleMobileAdsManager.Instance.HideBanner();
-            }
+            AdsManager_AdmobMediation.ModeAdHandler = CheckAdCount;
+            AdsManager_AdmobMediation.Instance.modeIndex = index;
+            AdsManager_Unity.ModeAdHandler = CheckAdCount;
+            AdsManager_Unity.Instance.modeIndex = index;
+            FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
         }
         catch { }
     }
