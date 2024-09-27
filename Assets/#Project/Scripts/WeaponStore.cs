@@ -250,8 +250,8 @@ public class WeaponStore : MonoBehaviour
     }
     public void RewardedGunAd()
     {
-        AdsManager_AdmobMediation.isGunAd = true;
-        FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+        AdsManager.isGunAd = true;
+        AdsManager.instance.ShowAdmobRewardedAd();
     }
     public void HideAds()
     {
@@ -553,8 +553,7 @@ public class WeaponStore : MonoBehaviour
 #if UNITY_EDITOR
         print("isFeaturedGuns : " + GameManagerStatic.Instance.isFeaturedGuns);
 #endif
-        GameManagerStatic.Instance.interstitial = "Interstitial";
-        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+        AdsManager.instance.ShowBothInterstitial();
     }
     public void _CloseFullSpecificationBulletsPanelButton()
     {

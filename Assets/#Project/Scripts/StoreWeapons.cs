@@ -342,11 +342,9 @@ public class StoreWeapons : MonoBehaviour
 #if UNITY_ANDROID
                 Debug.Log("Debug : Admob_Reward For Gun " + WeaponStore.Instance.currentOrderIndex);
 #endif
-                AdsManager_AdmobMediation.GunAdHandler = CheckAdCount;
-                AdsManager_AdmobMediation.Instance.prefIndex = weapon.PrefsIndex;
-            AdsManager_Unity.GunAdHandler = CheckAdCount;
-            AdsManager_Unity.Instance.prefIndex = weapon.PrefsIndex;
-            FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+                AdsManager.GunAdHandler = CheckAdCount;
+                AdsManager.instance.prefIndex = weapon.PrefsIndex;
+            AdsManager.instance.ShowAdmobRewardedAd();
         }
         catch { }
     }

@@ -799,8 +799,7 @@ public class LevelSelectionNew : MonoBehaviour
 
     public void _BackToModeSelection()
     {
-        GameManagerStatic.Instance.interstitial = "Interstitial";
-        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+        AdsManager.instance.ShowBothInterstitial();
 #if UNITY_ANDROID
         Debug.Log("Debug : " + modeSelection + " LevelSelection To ModeSelection");
 #endif

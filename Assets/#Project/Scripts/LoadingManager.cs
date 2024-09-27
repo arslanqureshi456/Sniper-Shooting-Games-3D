@@ -11,12 +11,12 @@ public class LoadingManager : MonoBehaviour
         // Unity Analytics
         if (PlayerPrefs.GetInt("AllowSessionAd").Equals(0))
         {
-            AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+            AdsManager.instance.ShowBottomLeftCubeBanner();
             // loadingBanner();
         }
         else
         {
-            AdsManager_AdmobMediation.Instance.HideBanners();
+            AdsManager.instance.RemoveAllBanners();
         }
         if (MainMenuManager.Instance.tutorialPanels[0].activeSelf)
         {
@@ -38,7 +38,7 @@ public class LoadingManager : MonoBehaviour
         //{
         //    GoogleMobileAdsManager.Instance.RePosition(GoogleMobileAds.Api.AdPosition.BottomLeft);
         //    GoogleMobileAdsManager.Instance.ShowMedBanner();
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        AdsManager.instance.ShowBottomLeftCubeBanner();
     }
 
     private IEnumerator LoadScene()
@@ -49,9 +49,8 @@ public class LoadingManager : MonoBehaviour
 #if UNITY_EDITOR
                 print("Ad Session Shown");
 #endif
-            AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
-            GameManagerStatic.Instance.interstitial = "Interstitial";
-                FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+            AdsManager.instance.ShowBottomLeftCubeBanner();
+            AdsManager.instance.ShowBothInterstitial();
         }
         yield return new WaitForSeconds(2);
 

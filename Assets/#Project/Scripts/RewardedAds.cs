@@ -57,8 +57,8 @@ public class RewardedAds : MonoBehaviour
 				freeAdrenaline_25 = false;
 				freeGold_12 = false;
 				freeSP_8 = false;
-			FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
-        }
+			AdsManager.instance.ShowAdmobRewardedAd();
+		}
         catch { }
 	}
     public void _FreeAdrenaline_25Button()
@@ -72,7 +72,7 @@ public class RewardedAds : MonoBehaviour
 				freeAdrenaline_25 = true;
 				freeGold_12 = false;
 				freeSP_8 = false;
-			FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+			AdsManager.instance.ShowAdmobRewardedAd();
 		}
         catch { }
     }

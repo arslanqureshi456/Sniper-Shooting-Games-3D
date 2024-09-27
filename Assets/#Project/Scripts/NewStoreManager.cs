@@ -136,7 +136,7 @@ public class NewStoreManager : MonoBehaviour
         {
             try
             {
-                if (AdsManager_AdmobMediation.Instance.IsRewardedLoaded())
+                if (AdsManager.instance.IsRewardedVideoReady())
                 {
                     addsAvailibleTexts[i].SetActive(true);
                     addsNotAvailibleTexts[i].SetActive(false);

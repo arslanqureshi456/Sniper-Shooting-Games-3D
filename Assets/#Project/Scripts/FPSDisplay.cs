@@ -38,7 +38,7 @@ public class FPSDisplay : MonoBehaviour
         if (timeleft <= 0.0)
         {
             // display two fractional digits (f2 format)
-            if (GoogleMobileAdsManager.Instance.enableTestMode)
+            if (AdsManager.instance.isTestMode)
             {
                 text.text = "" + (accum / frames).ToString("f2");
             }

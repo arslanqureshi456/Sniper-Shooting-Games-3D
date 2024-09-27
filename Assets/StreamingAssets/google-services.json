@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "15841677271",
-    "project_id": "offline-sniper-shooting-25d8b",
-    "storage_bucket": "offline-sniper-shooting-25d8b.appspot.com"
+    "project_number": "641893002853",
+    "project_id": "sniper-shooting-games-3d",
+    "storage_bucket": "sniper-shooting-games-3d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:15841677271:android:9e888a5ebcded628e68592",
+        "mobilesdk_app_id": "1:641893002853:android:25ffe56c7eea0776ab608c",
         "android_client_info": {
-          "package_name": "com.dsgl.sniper.shooting.games"
+          "package_name": "com.dsg.sniper.shooting.games"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDyU6KMPa3wqQd9kDy5XMkoRY_nHgOYv2s"
+          "current_key": "AIzaSyDnItBSlc01pCbck8b6mqKQ3TSxVqaFzdw"
         }
       ],
       "services": {

@@ -82,11 +82,9 @@ public class ModeUnlock : MonoBehaviour
     {
         try
         {
-            AdsManager_AdmobMediation.ModeAdHandler = CheckAdCount;
-            AdsManager_AdmobMediation.Instance.modeIndex = index;
-            AdsManager_Unity.ModeAdHandler = CheckAdCount;
-            AdsManager_Unity.Instance.modeIndex = index;
-            FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+            AdsManager.ModeAdHandler = CheckAdCount;
+            AdsManager.instance.modeIndex = index;
+            AdsManager.instance.ShowAdmobRewardedAd();
         }
         catch { }
     }

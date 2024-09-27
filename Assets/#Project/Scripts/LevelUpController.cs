@@ -70,8 +70,8 @@ public class LevelUpController : MonoBehaviour
         //}
         //else
         //{
-            GoogleMobileAdsManager.Instance.HideBanner();
-            GoogleMobileAdsManager.Instance.ShowMedBanner();
+           // GoogleMobileAdsManager.Instance.HideBanner();
+           // GoogleMobileAdsManager.Instance.ShowMedBanner();
         //}
         animationCamera.gameObject.SetActive(false);
         this.gameObject.SetActive(false);

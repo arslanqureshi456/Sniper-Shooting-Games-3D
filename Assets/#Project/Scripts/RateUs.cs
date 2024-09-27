@@ -30,7 +30,7 @@ public class RateUs : MonoBehaviour
     }
     private void OnEnable()
 	{
-        AdsManager_AdmobMediation.Instance.HideBanners();
+        AdsManager.instance.RemoveAllBanners();
     }
 
 	private void FillStar()
@@ -235,7 +235,7 @@ public class RateUs : MonoBehaviour
         //GoogleMobileAdsManager.Instance.HideBanner();
         //GoogleMobileAdsManager.Instance.ShowMedBanner();
         //StartCoroutine(GameManager.Instance.LevelCompleteAd(0f));
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+        AdsManager.instance.ShowTopSmallBanner();
         AudioManager.instance.BackButtonClick();
         this.gameObject.SetActive (false);
 	}
@@ -245,8 +245,7 @@ public class RateUs : MonoBehaviour
         PlayerPrefs.SetInt("NeverRateUs", 1);
         AudioManager.instance.BackButtonClick();
         this.gameObject.SetActive(false);
-        GameManagerStatic.Instance.interstitial = "Interstitial";
-        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+        AdsManager.instance.ShowBothInterstitial();
     }
     public void PlaySound()
     {

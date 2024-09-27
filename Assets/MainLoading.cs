@@ -10,7 +10,7 @@ public class MainLoading : MonoBehaviour
     {
         countDown.SetActive(true);
         this.gameObject.SetActive(false);
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+        AdsManager.instance.ShowTopSmallBanner();
     }
 
     void Start()

@@ -89,8 +89,7 @@ public class InAppManager : MonoBehaviour, IStoreListener
             {
                 return;
             }
-            if (!GoogleMobileAdsManager.Instance.IsLowMemory())
-            {
+            
                 var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
                 
 
@@ -108,7 +107,6 @@ public class InAppManager : MonoBehaviour, IStoreListener
                 
 
                 UnityPurchasing.Initialize(this, builder);
-            }
         
     }
 
@@ -263,7 +261,7 @@ public class InAppManager : MonoBehaviour, IStoreListener
                 }
             }
         }
-        
+        MainMenuManager.Instance.HideInAppProcess(1);
         return PurchaseProcessingResult.Complete;
     }
 

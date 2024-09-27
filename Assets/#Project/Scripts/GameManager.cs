@@ -287,8 +287,6 @@ public class GameManager : MonoBehaviour
 
  
 
-    // Gameplay Banner Background
-    public GameObject GameplayBannerBG;
 
     public Text doubleSPText, doubleGoldText, doubleSPPanelText, doubleGoldPanelText;
     public GameObject doubleRewardPanel;
@@ -578,7 +576,7 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            AdsManager_AdmobMediation.Instance.HideBanners();
+            AdsManager.instance.RemoveAllBanners();
             RenderSettings.fogMode = FogMode.ExponentialSquared;
             RenderSettings.fogDensity = 0.0025f;
             WeaponBehavior.bulletCount = 0;
@@ -796,8 +794,7 @@ public class GameManager : MonoBehaviour
     // Banner Show In Gameplay
     void ShowBanner()
     {
-        GameplayBannerBG.SetActive(true);
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.AdaptiveBannerType, GoogleMobileAds.Api.AdPosition.Top);
+        AdsManager.instance.ShowTopAdaptiveBanner();
     }
     
 
@@ -1110,17 +1107,15 @@ public class GameManager : MonoBehaviour
         switch (currentGunReward)
         {
             case 2:
-                AdsManager_AdmobMediation.isGunAd = true;
-                AdsManager_Unity.isGunAd = true;
+                AdsManager.isGunAd = true;
                 notAdseen = true;
-                FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+                AdsManager.instance.ShowAdmobRewardedAd();
                 break;
 
             case 4:
-                AdsManager_AdmobMediation.isGunAd = true;
-                AdsManager_Unity.isGunAd = true;
+                AdsManager.isGunAd = true;
                 notAdseen = true;
-                FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+                AdsManager.instance.ShowAdmobRewardedAd();
                 break;
         }
         gunsRewardsPanel.SetActive(false);
@@ -1140,7 +1135,7 @@ public class GameManager : MonoBehaviour
 #endif
         if (isLevelFailed)
         {
-            AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+            AdsManager.instance.ShowBottomLeftCubeBanner();
             yield break;
         }
         
@@ -1150,7 +1145,7 @@ public class GameManager : MonoBehaviour
 
         Screen.SetResolution(PlayerPrefs.GetInt("Width"), PlayerPrefs.GetInt("Height"), true, 60);
 
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        AdsManager.instance.ShowBottomLeftCubeBanner();
     }
 
     private void ShowPanel(GameObject panelToShow)
@@ -1172,7 +1167,7 @@ public class GameManager : MonoBehaviour
         if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.SNIPER)
         {
             miniMap.SetActive(false);
-            AdsManager_AdmobMediation.Instance.HideBanners();
+            AdsManager.instance.RemoveAllBanners();
         }
 
         if (sniper_1.activeInHierarchy || sniper_2.activeInHierarchy)
@@ -1199,7 +1194,7 @@ public class GameManager : MonoBehaviour
         if (LevelSelectionNew.modeSelection == LevelSelectionNew.modeType.SNIPER)
         {
             miniMap.SetActive(true);
-            AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.AdaptiveBannerType, GoogleMobileAds.Api.AdPosition.Top);
+            AdsManager.instance.ShowTopAdaptiveBanner();
         }
 
         if (!sniper_1.activeInHierarchy || sniper_2.activeInHierarchy)
@@ -1422,8 +1417,7 @@ public class GameManager : MonoBehaviour
         mainCamera.farClipPlane = 1;
         DisableHudIcons();
         
-        // Ads
-        GameplayBannerBG.SetActive(false);
+       
         //UpdatePrefs();
         ShowPanel(levelFailPanel);
 
@@ -1438,10 +1432,9 @@ public class GameManager : MonoBehaviour
         UpdatePrefs();
         failedButtons.SetActive(true);
 
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
-        GameManagerStatic.Instance.interstitial = "";
-        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
-        
+        AdsManager.instance.ShowBottomLeftCubeBanner();
+        AdsManager.instance.ShowBothInterstitial();
+
         yield return new WaitForSecondsRealtime(0.1f);
         // Enabling Failed Buttons
         failedLoadoutButton.GetComponent<Button>().interactable = true;
@@ -2012,14 +2005,13 @@ public class GameManager : MonoBehaviour
         print("Complete");
 #endif
         DisableLevelCompleteButtons();
-        
+
 
         // Ads
-        GameplayBannerBG.SetActive(false);
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
-        GameManagerStatic.Instance.interstitial = "";
-        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
-        
+        AdsManager.instance.ShowBottomLeftCubeBanner();
+
+        Invoke("WaitCompleteAds", 2);
+
         mainCamera.farClipPlane = 1;
 
         isBannerLoaded = false;
@@ -2049,6 +2041,10 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
+    void WaitCompleteAds()
+    {
+        AdsManager.instance.ShowBothInterstitial();
+    }
     public float PlayedTime
     {
         get
@@ -2115,7 +2111,7 @@ public class GameManager : MonoBehaviour
         assaultProgressText.SetActive(false);
         coverStrikeProgressText.SetActive(false);
         failedButtons.SetActive(false);
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+        AdsManager.instance.ShowTopSmallBanner();
         Time.timeScale = 1;
         mainCamera.farClipPlane = 250;
         if (AudioManager.instance)
@@ -2181,7 +2177,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Ads
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+        AdsManager.instance.ShowTopSmallBanner();
 
         videoRewardPanel.SetActive(true);
     }
@@ -2231,8 +2227,7 @@ public class GameManager : MonoBehaviour
     //ADS
     private void ShowAdmob()
     {
-        GameManagerStatic.Instance.interstitial = "";
-        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+        AdsManager.instance.ShowBothInterstitial();
     }
 
     private static int completeCount_1, completeCount_2, completeCount_3, sniperCompleteCount = 0;
@@ -2248,12 +2243,10 @@ public class GameManager : MonoBehaviour
 #endif
         pauseButtons.SetActive(true);
         CalculateScore();
-        
-        GameplayBannerBG.SetActive(false);
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
-        GameManagerStatic.Instance.interstitial = "";
-        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
-       
+
+        AdsManager.instance.ShowBottomLeftCubeBanner();
+        AdsManager.instance.ShowBothInterstitial();
+
         mainCamera.farClipPlane = 1;
 
         DisableHudIcons();
@@ -2275,7 +2268,7 @@ public class GameManager : MonoBehaviour
     bool isBannerLoaded = false;
     void DelayedAddsShowBanner()
     {
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        AdsManager.instance.ShowBottomLeftCubeBanner();
 
         isBannerLoaded = true;
     }
@@ -2299,9 +2292,9 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0;
 
-        GameplayBannerBG.SetActive(false);
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
-        
+
+        AdsManager.instance.ShowBottomLeftCubeBanner();
+
     }
 
     public void _CloseSettingButton()
@@ -2342,8 +2335,8 @@ public class GameManager : MonoBehaviour
         }
 
 
-        GameplayBannerBG.SetActive(true);
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+
+        AdsManager.instance.ShowTopSmallBanner();
     }
 
     public void _ResumeButton()
@@ -2353,7 +2346,7 @@ public class GameManager : MonoBehaviour
 #endif
         // Ads
         pauseButtons.SetActive(false);
-        AdsManager_AdmobMediation.Instance.HideBanners();
+        AdsManager.instance.RemoveAllBanners();
 
         Time.timeScale = 1;
         successfulObjectivesCount = 0;
@@ -2371,8 +2364,8 @@ public class GameManager : MonoBehaviour
 
         countdownPanel.SetActive(true);
 
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
-        GameplayBannerBG.SetActive(true);
+        AdsManager.instance.ShowTopSmallBanner();
+
     }
 
     public void _RestartButton()
@@ -2399,7 +2392,7 @@ public class GameManager : MonoBehaviour
         Screen.SetResolution(PlayerPrefs.GetInt("Width"), PlayerPrefs.GetInt("Height"), true, 60);
 
         // Ads
-        AdsManager_AdmobMediation.Instance.HideBanners();
+        AdsManager.instance.RemoveAllBanners();
         Time.timeScale = 1;
         mainCamera.farClipPlane = 250;
         if (AudioManager.instance)
@@ -2448,7 +2441,7 @@ public class GameManager : MonoBehaviour
 #endif
         }
         // Ads
-        AdsManager_AdmobMediation.Instance.HideBanners();
+        AdsManager.instance.RemoveAllBanners();
         Invoke("ShowHomeAds" , 0.1f);
 
         Time.timeScale = 1;
@@ -2463,8 +2456,7 @@ public class GameManager : MonoBehaviour
     void ShowHomeAds()
     {
         DelayedAddsShowBanner();
-        GameManagerStatic.Instance.interstitial = "Interstitial";
-        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+        AdsManager.instance.ShowBothInterstitial();
     }
     public void _LoadOutButton()
     {
@@ -2472,7 +2464,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Debug : " + LevelSelectionNew.modeSelection + " Check LoadOut Button");
 #endif
         // Ads
-        AdsManager_AdmobMediation.Instance.HideBanners();
+        AdsManager.instance.RemoveAllBanners();
 
         Time.timeScale = 1;
         mainCamera.farClipPlane = 250;
@@ -2488,7 +2480,7 @@ public class GameManager : MonoBehaviour
     public void _PurchaseWeaponButton()
     {
         // Ads
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+        AdsManager.instance.ShowTopSmallBanner();
 
         Time.timeScale = 1;
         mainCamera.farClipPlane = 250;
@@ -2586,8 +2578,8 @@ public class GameManager : MonoBehaviour
             HandleAnalyticsResult(result);
             if (PlayerPrefs.GetInt("levelUnlocked-80").Equals(1))
             {
-                AdsManager_AdmobMediation.Instance.HideBanners();
-                AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+                AdsManager.instance.RemoveAllBanners();
+                AdsManager.instance.ShowTopSmallBanner();
                 assaultLevelsCompletedPanel.SetActive(true);
                 assaultProgressText.SetActive(true);
                 PlayerPrefs.SetInt("Mode", 0);
@@ -2617,8 +2609,8 @@ public class GameManager : MonoBehaviour
             if (isAllLevelCompleted)
             {
                 isAllLevelCompleted = false;
-                AdsManager_AdmobMediation.Instance.HideBanners();
-                AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+                AdsManager.instance.RemoveAllBanners();
+                AdsManager.instance.ShowTopSmallBanner();
                 coverStrikeLevelsCompletedPanel.SetActive(true);
                 coverStrikeProgressText.SetActive(true);
                 PlayerPrefs.SetInt("CampMode", 0);//Assault
@@ -2627,7 +2619,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Ads
-        AdsManager_AdmobMediation.Instance.HideBanners();
+        AdsManager.instance.RemoveAllBanners();
 
         Time.timeScale = 1;
 
@@ -2703,14 +2695,13 @@ public class GameManager : MonoBehaviour
 
         SaveManager.Instance.state.nextButtonPressed = 1;
         SaveManager.Instance.Save();
-        AdsManager_AdmobMediation.Instance.HideBanners();
+        AdsManager.instance.RemoveAllBanners();
         SceneManager.LoadScene("MainMenu");
     }
 
     private IEnumerator LoadScene()
     {
-        GameManagerStatic.Instance.interstitial = "Interstitial";
-        FakeLoadingInterstitial.instance.FakeLoadingCanvas.SetActive(true);
+        AdsManager.instance.ShowBothInterstitial();
         yield return new WaitForSeconds(4);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
 
@@ -2731,12 +2722,12 @@ public class GameManager : MonoBehaviour
                 revivePanel.SetActive(false);
 
         // Ads
-        
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.SmallBannerType, GoogleMobileAds.Api.AdPosition.Top);
+
+        AdsManager.instance.ShowTopSmallBanner();
 
         freeRetryVideoButton.interactable = false;
             freeRetryButtonPressed = true;
-        FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+        AdsManager.instance.ShowAdmobRewardedAd();
         //}
     }
 
@@ -2761,7 +2752,7 @@ public class GameManager : MonoBehaviour
 #endif
         doubleRewardButtonPressed = true;
         doubleRewardButton.interactable = false;
-        FakeLoadingReward.instance.FakeLoadingCanvas.SetActive(true);
+        AdsManager.instance.ShowAdmobRewardedAd();
     }
 
     void DoubleRewardNotAvailable()
@@ -2885,7 +2876,7 @@ public class GameManager : MonoBehaviour
     {
         // Ads
 
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        AdsManager.instance.ShowBottomLeftCubeBanner();
 
         AudioManager.instance.BackButtonClick();
         videoRewardPanel.SetActive(false);
@@ -2961,7 +2952,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Ads
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        AdsManager.instance.ShowBottomLeftCubeBanner();
     }
 
     public void PurchasePass()
@@ -2983,7 +2974,7 @@ public class GameManager : MonoBehaviour
     {
         // Ads
         //GoogleMobileAdsManager.Instance.HideBanner();
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        AdsManager.instance.ShowBottomLeftCubeBanner();
 
         AudioManager.instance.StoreButtonClick();
         //removeAdsPanel.SetActive(false);
@@ -3059,7 +3050,7 @@ public class GameManager : MonoBehaviour
         {
             weaponsCamera.GetComponent<Camera>().enabled = false;
         }
-        AdsManager_AdmobMediation.Instance.HideBanners();
+        AdsManager.instance.RemoveAllBanners();
     }
 
     public void ControlsReturn()
@@ -3075,7 +3066,7 @@ public class GameManager : MonoBehaviour
         {
             weaponsCamera.GetComponent<Camera>().enabled = true;
         }
-        AdsManager_AdmobMediation.Instance.ShowBanner(AdsManager_AdmobMediation.BannerType.LargeBannerType, GoogleMobileAds.Api.AdPosition.BottomLeft);
+        AdsManager.instance.ShowBottomLeftCubeBanner();
     }
 
     public void LanugagesPanel()
@@ -3283,7 +3274,7 @@ public class GameManager : MonoBehaviour
 
     public void HideMedBanner()
     {
-        AdsManager_AdmobMediation.Instance.HideBanners();
+        AdsManager.instance.RemoveAllBanners();
     }
 
    
