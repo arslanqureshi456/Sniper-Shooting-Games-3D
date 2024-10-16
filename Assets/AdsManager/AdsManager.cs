@@ -1288,11 +1288,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         {
             if (appOpenAd != null && !adShowing)
             {
-                ShowAppOpen();
+               // ShowAppOpen();
             }
             else
             {
-                adShowing = false;
+               // adShowing = false;
             }
         }
     }

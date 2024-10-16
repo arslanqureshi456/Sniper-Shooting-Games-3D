@@ -183,7 +183,7 @@ public class Preloader : MonoBehaviour
             PlayerPrefs.SetInt("Mode1", 1);
             PlayerPrefs.SetInt("weapon19", 1);
             PlayerPrefs.SetInt("SniperEquipped", 19);
-            Invoke("LoadMenuScene", 7f);
+            Invoke("LoadMenuScene", 8f);
 
         }
         else
@@ -243,7 +243,7 @@ public class Preloader : MonoBehaviour
             
             SaveManager.Instance.Session = 1;
             PlayerPrefs.SetInt("Mode1", 1);
-            Invoke("LoadMenuScene", 7);
+            Invoke("LoadMenuScene", 8);
         }
 
 

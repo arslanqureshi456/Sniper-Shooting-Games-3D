@@ -459,7 +459,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         if(PlayerPrefs.GetInt("Appopen") == 0)
         {
             PlayerPrefs.SetInt("Appopen", 1);
-            AdsManager.instance.ShowAppOpen();
+            ShowSessionAd();
             if (sessionAdLoading.activeInHierarchy)
             {
                 sessionAdLoading.SetActive(false);
@@ -982,7 +982,8 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         //{
         //    // tutorialNameEntryPanel.SetActive(true);
         //}
-        AdsManager.instance.ShowTopSmallBanner();
+        AdsManager.instance.RemoveBottomLeftCubeBanner();
+        //AdsManager.instance.ShowTopSmallBanner();
         EnablePanel(mainMenuPanel);
     }
 

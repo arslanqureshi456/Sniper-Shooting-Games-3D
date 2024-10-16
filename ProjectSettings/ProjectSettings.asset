@@ -176,7 +176,7 @@ PlayerSettings:
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 2
   AndroidMinSdkVersion: 22
-  AndroidTargetSdkVersion: 34
+  AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
   aotOptions: 
   stripEngineCode: 1
@@ -796,7 +796,7 @@ PlayerSettings:
   m_RenderingPath: 3
   m_MobileRenderingPath: 1
   metroPackageName: RFPSP123
-  metroPackageVersion: 
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -804,7 +804,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: RFPSP123
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Offline Sniper Shooting Games
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

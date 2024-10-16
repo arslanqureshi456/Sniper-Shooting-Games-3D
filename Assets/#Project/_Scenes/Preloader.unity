@@ -139,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 1829925136933791530, guid: b674b96b455d80847a6bc215ca47d93f,
         type: 3}
       propertyPath: appOpenId
-      value: ca-app-pub-7394414798118716/7156898964
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1829925136933791530, guid: b674b96b455d80847a6bc215ca47d93f,
         type: 3}
@@ -150,6 +150,11 @@ PrefabInstance:
         type: 3}
       propertyPath: rewardedId
       value: ca-app-pub-7394414798118716/5436623182
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829925136933791530, guid: b674b96b455d80847a6bc215ca47d93f,
+        type: 3}
+      propertyPath: isAppOpenAd
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1829925136933791530, guid: b674b96b455d80847a6bc215ca47d93f,
         type: 3}
