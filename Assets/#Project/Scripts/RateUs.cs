@@ -235,7 +235,7 @@ public class RateUs : MonoBehaviour
         //GoogleMobileAdsManager.Instance.HideBanner();
         //GoogleMobileAdsManager.Instance.ShowMedBanner();
         //StartCoroutine(GameManager.Instance.LevelCompleteAd(0f));
-        AdsManager.instance.ShowTopSmallBanner();
+       // AdsManager.instance.ShowTopSmallBanner();
         AudioManager.instance.BackButtonClick();
         this.gameObject.SetActive (false);
 	}
@@ -245,7 +245,7 @@ public class RateUs : MonoBehaviour
         PlayerPrefs.SetInt("NeverRateUs", 1);
         AudioManager.instance.BackButtonClick();
         this.gameObject.SetActive(false);
-        AdsManager.instance.ShowBothInterstitial();
+      //  AdsManager.instance.ShowBothInterstitial();
     }
     public void PlaySound()
     {

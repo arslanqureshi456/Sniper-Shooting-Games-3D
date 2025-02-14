@@ -799,7 +799,7 @@ public class LevelSelectionNew : MonoBehaviour
 
     public void _BackToModeSelection()
     {
-        AdsManager.instance.ShowBothInterstitial();
+       // AdsManager.instance.ShowBothInterstitial();
 #if UNITY_ANDROID
         Debug.Log("Debug : " + modeSelection + " LevelSelection To ModeSelection");
 #endif

@@ -159,7 +159,7 @@ public class MainMenuManager : MonoBehaviour
 
 
         //ADS
-        AdsManager.instance.RemoveAllBanners();
+       // AdsManager.instance.RemoveAllBanners();
         Invoke("DelayedAdd", 1.5f);
        
 
@@ -489,7 +489,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
     {
         if (GameManagerStatic.Instance.isSessionShown == 0)
         {
-            AdsManager.instance.ShowStaticInterstitial();
+           // AdsManager.instance.ShowStaticInterstitial();
             GameManagerStatic.Instance.isSessionShown = 1;
             SaveManager.Instance.Session = 0;
             if (sessionAdLoading.activeInHierarchy)
@@ -514,7 +514,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
     }
     public void DelayedAdd()
     {
-        AdsManager.instance.ShowTopSmallBanner();
+       // AdsManager.instance.ShowTopSmallBanner();
     }
     private void EnablePanel(GameObject panelToShow)
     {
@@ -618,7 +618,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         {
             if (GameManagerStatic.Instance.isSessionShown == 0)
             {
-                AdsManager.instance.ShowStaticInterstitial();
+               // AdsManager.instance.ShowStaticInterstitial();
                 GameManagerStatic.Instance.isSessionShown = 1;
                 SaveManager.Instance.Session = 0;
             }
@@ -874,8 +874,8 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
 #endif
         AudioManager.instance.NormalClick();
         EnablePanel(quitPanel);
-        AdsManager.instance.ShowBottomLeftCubeBanner();
-        AdsManager.instance.ShowBothInterstitial();
+       // AdsManager.instance.ShowBottomLeftCubeBanner();
+      //  AdsManager.instance.ShowBothInterstitial();
     }
 
     public void _CloseQuitButton()
@@ -890,7 +890,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         {
            // tutorialNameEntryPanel.SetActive(true);
         }
-        AdsManager.instance.ShowTopSmallBanner();
+       // AdsManager.instance.ShowTopSmallBanner();
         EnablePanel(mainMenuPanel);
     }
 
@@ -899,7 +899,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
 #if UNITY_ANDROID
         Debug.Log("Debug : Quit Game Completely");
 #endif
-        AdsManager.instance.RemoveAllBanners();
+       // AdsManager.instance.RemoveAllBanners();
         Application.Quit();
     }
 
@@ -927,7 +927,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         {
             gunsCamera.SetActive(true);
             inAppProcessPanel.SetActive(false);
-            AdsManager.instance.RemoveAllBanners();
+           // AdsManager.instance.RemoveAllBanners();
         }
         else
         {
@@ -950,7 +950,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
     public void StartLoading()
     {
         loadingPanel.SetActive(true);
-        AdsManager.instance.RemoveAllBanners();
+      //  AdsManager.instance.RemoveAllBanners();
     }
     public void OpenMainMenu()
     {
@@ -970,7 +970,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
 #endif
         AudioManager.instance.NormalClick();
         EnablePanel(settingPanel);
-        AdsManager.instance.ShowBottomLeftCubeBanner();
+       // AdsManager.instance.ShowBottomLeftCubeBanner();
     }
 
     public void _CloseSettingButton()
@@ -982,7 +982,7 @@ print("Multiplayer Mode : " + PlayerPrefs.GetInt("MultiplayerMode"));
         //{
         //    // tutorialNameEntryPanel.SetActive(true);
         //}
-        AdsManager.instance.RemoveBottomLeftCubeBanner();
+       // AdsManager.instance.RemoveBottomLeftCubeBanner();
         //AdsManager.instance.ShowTopSmallBanner();
         EnablePanel(mainMenuPanel);
     }

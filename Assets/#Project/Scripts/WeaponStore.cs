@@ -553,7 +553,7 @@ public class WeaponStore : MonoBehaviour
 #if UNITY_EDITOR
         print("isFeaturedGuns : " + GameManagerStatic.Instance.isFeaturedGuns);
 #endif
-        AdsManager.instance.ShowBothInterstitial();
+        //AdsManager.instance.ShowBothInterstitial();
     }
     public void _CloseFullSpecificationBulletsPanelButton()
     {

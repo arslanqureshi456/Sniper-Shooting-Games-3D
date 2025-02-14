@@ -10,7 +10,7 @@ public class MainLoading : MonoBehaviour
     {
         countDown.SetActive(true);
         this.gameObject.SetActive(false);
-        AdsManager.instance.ShowTopSmallBanner();
+       // AdsManager.instance.ShowTopSmallBanner();
     }
 
     void Start()
